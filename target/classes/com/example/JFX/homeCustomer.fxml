@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.JFX.Controller.CustomerHomeController">
+   <children>
+      <Label fx:id="welcomeLabel" alignment="TOP_CENTER" layoutX="251.0" layoutY="48.0" prefHeight="56.0" prefWidth="328.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonLogout" layoutX="14.0" layoutY="521.0" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="43.0" prefWidth="102.0" text="Sign Out">
+         <graphic>
+            <ImageView fx:id="logoutImageView" fitHeight="35.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../Images/LogoutIcon.jpg" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+   </children>
+</AnchorPane>

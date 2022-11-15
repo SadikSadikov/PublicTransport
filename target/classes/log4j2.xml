@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Properties>
+        <Property name="path">C:\Users\USER\Desktop\Log4j\</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="rolling" filename="${path}logger.log"
+                     filepattern="${path}/%d{YYYY-MM-dd-HH-mm-ss}-%i.log">
+            <PatternLayout pattern="%d{YYYY-MM-dd / HH:mm:ss} - %-5p - %logger{36} - {%F:%L} - %msg%n" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="3 KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="200" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com" level="INFO" additivity="false">
+            <appender-ref ref="rolling"/>
+        </Logger>
+    </Loggers>
+
+</Configuration>
