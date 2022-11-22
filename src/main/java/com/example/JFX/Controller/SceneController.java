@@ -46,6 +46,15 @@ public class SceneController {
     public static void getAdminHomeScene(ActionEvent event) throws IOException {
         changeScreen(event,ScenePath.HOME_ADMIN.getPath(), IconPath.MAIN.getPath());
     }
+    public static void getTravelCompanyHomeScene(ActionEvent event) throws IOException {
+        changeScreen(event,ScenePath.HOME_TRAVEL_COMPANY.getPath(),IconPath.MAIN.getPath());
+    }
+    public static void getCashierHomeScene(ActionEvent event) throws IOException {
+        changeScreen(event,ScenePath.HOME_CASHIER.getPath(),IconPath.MAIN.getPath());
+    }
+    public static void getDistributorScene(ActionEvent event) throws IOException {
+        changeScreen(event,ScenePath.HOME_DISTRIBUTOR.getPath(),IconPath.MAIN.getPath());
+    }
 
     private static void changeScreen(ActionEvent event, String fxmlPath,String iconPath) throws IOException {
         main = FXMLLoader.load(SceneController.class.getResource(fxmlPath));

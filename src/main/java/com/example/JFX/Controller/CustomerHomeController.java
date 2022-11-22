@@ -36,7 +36,7 @@ public class CustomerHomeController implements Initializable {
     }
 
     private void setTexts(){
-        File logoutFile = new File("Images/LogoutIcon.jpg");
+        File logoutFile = new File("Images/Logout.png");
         Image logoutImage = new Image(logoutFile.toURI().toString());
         logoutImageView.setImage(logoutImage);
         welcomeLabel.setText("Welcome, "+ CurrentUser.getUser().getUserName());

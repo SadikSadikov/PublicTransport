@@ -96,7 +96,7 @@
          <graphic>
             <ImageView fx:id="backImageView" fitHeight="30.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/BackIcon.jpg" />
+                  <Image url="@../../../../../../Images/back.png" />
                </image>
             </ImageView>
          </graphic></Hyperlink>

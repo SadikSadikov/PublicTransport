@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 
-public class CustomerDao implements DAOInterface<CustomerEntity> {
+public class CustomerDAO implements DAOInterface<CustomerEntity> {
 
     @Override
     public boolean addData(CustomerEntity data) {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.JFX.Controller.DistributorHomeController">
+    <children>
+        <Button fx:id="buttonLogout" layoutX="14.0" layoutY="530.0" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="35.0" prefWidth="94.0" text="Log Out">
+            <graphic>
+                <ImageView fx:id="logoutImageView" fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../../../Images/Logout.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
+</AnchorPane>

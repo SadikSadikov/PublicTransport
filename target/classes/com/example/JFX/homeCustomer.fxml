@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.JFX.Controller.CustomerHomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.JFX.Controller.CustomerHomeController">
    <children>
       <Label fx:id="welcomeLabel" alignment="TOP_CENTER" layoutX="251.0" layoutY="48.0" prefHeight="56.0" prefWidth="328.0">
          <font>
@@ -18,7 +18,7 @@
          <graphic>
             <ImageView fx:id="logoutImageView" fitHeight="35.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/LogoutIcon.jpg" />
+                  <Image url="@../../../../../../Images/Logout.png" />
                </image>
             </ImageView>
          </graphic></Button>

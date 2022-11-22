@@ -1,20 +1,184 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.JFX.Controller.AdminHomeController">
    <children>
-      <Button fx:id="buttonLogout" layoutX="14.0" layoutY="534.0" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="35.0" prefWidth="94.0" text="Log Out">
-         <graphic>
-            <ImageView fx:id="logoutImageView" fitHeight="38.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+      <AnchorPane layoutY="33.0" prefHeight="551.0" prefWidth="135.0" style="-fx-background-color: #1E90FF;">
+         <children>
+            <Button fx:id="buttonLogout" alignment="TOP_LEFT" layoutX="7.0" layoutY="501.0" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="36.0" prefWidth="108.0" style="-fx-background-color: #87CEFA;" text="Log Out">
+               <graphic>
+                  <ImageView fx:id="logoutImageView" fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/Logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Label fx:id="welcomeLabel" alignment="TOP_CENTER" layoutX="8.0" layoutY="140.0" prefHeight="35.0" prefWidth="118.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="userImageView" fitHeight="116.0" fitWidth="88.0" layoutX="17.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/LogoutIcon.jpg" />
+                  <Image url="@../../../../../../Images/user.png" />
                </image>
             </ImageView>
-         </graphic>
-      </Button>
+            <Button fx:id="buttonDashboard" alignment="TOP_LEFT" layoutX="2.0" layoutY="188.0" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="35.0" prefWidth="118.0" style="-fx-background-color: #87CEFA;" text="Dashboard">
+               <graphic>
+                  <ImageView fx:id="dashboardImageView" fitHeight="25.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/dashboard.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="buttonAddEmployee" alignment="TOP_LEFT" layoutX="2.0" layoutY="230.0" mnemonicParsing="false" onAction="#buttonAddEmployee" prefHeight="35.0" prefWidth="118.0" style="-fx-background-color: #87CEFA;" text="Add Employee">
+               <graphic>
+                  <ImageView fx:id="addEmployeeImageView" fitHeight="25.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/addEmployee.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="refreshButton" layoutY="1.0" mnemonicParsing="false" onAction="#refreshButton" style="-fx-background-color: #87CEFA;">
+               <graphic>
+                  <ImageView fx:id="refreshImageView" fitHeight="30.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/refresh.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="dashboardAnchorPane" layoutX="136.0" layoutY="26.0" prefHeight="566.0" prefWidth="646.0" />
+      <AnchorPane fx:id="addEmployeeAnchorPane" layoutX="136.0" layoutY="33.0" prefHeight="566.0" prefWidth="646.0" visible="false">
+         <children>
+            <ComboBox fx:id="comboBoxAddEmployee" layoutY="8.0" onAction="#comboBoxAddEmployee" prefHeight="26.0" prefWidth="147.0" style="-fx-background-color: #708090;" />
+            <AnchorPane layoutX="195.0" layoutY="8.0" prefHeight="551.0" prefWidth="451.0" style="-fx-background-color: #708090;">
+               <children>
+                  <Label layoutX="4.0" layoutY="88.0" text="Firstname">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="firstNameTextField" layoutX="2.0" layoutY="108.0" prefHeight="30.0" prefWidth="225.0" promptText="Firstname">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="4.0" layoutY="147.0" text="Lastname">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="lastNameTextField" layoutX="4.0" layoutY="167.0" prefHeight="30.0" prefWidth="226.0" promptText="Lastname">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="5.0" layoutY="210.0" text="Username">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="3.0" layoutY="271.0" text="Password">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="passwordField" layoutX="3.0" layoutY="291.0" prefHeight="30.0" prefWidth="226.0" promptText="Password">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <Label layoutX="3.0" layoutY="335.0" text="Confirm Password">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="confirmPasswordField" layoutX="3.0" layoutY="355.0" prefHeight="30.0" prefWidth="226.0" promptText="Confirm Password">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <TextField fx:id="userNameTextField" layoutX="4.0" layoutY="230.0" prefHeight="30.0" prefWidth="226.0" promptText="Username">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <ImageView fx:id="addEmployeeIconImageView" fitHeight="63.0" fitWidth="108.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/addEmployee.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="nameEmployeeLabel" layoutX="101.0" layoutY="29.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="createEmployeeButton" layoutX="2.0" layoutY="413.0" mnemonicParsing="false" onAction="#createEmployeeButton" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #87CEFA;" text="Create" />
+                  <Button fx:id="resetTextButton" layoutX="117.0" layoutY="413.0" mnemonicParsing="false" onAction="#resetTextButton" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #87CEFA;" text="Reset" />
+                  <Label alignment="BOTTOM_CENTER" layoutX="339.0" layoutY="59.0" prefHeight="88.0" prefWidth="112.0" style="-fx-background-color: #00FF00;" text="Travel Company">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="travelCompanyTextField" disable="true" layoutX="419.0" layoutY="64.0" prefHeight="25.0" prefWidth="28.0" />
+                  <ImageView fx:id="travelCompanyImageView" fitHeight="43.0" fitWidth="58.0" layoutX="347.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/travelcompany.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="BOTTOM_CENTER" layoutX="339.0" layoutY="153.0" prefHeight="88.0" prefWidth="112.0" style="-fx-background-color: #FF4500;" text="Distributor">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="distributorTextField" disable="true" layoutX="419.0" layoutY="171.0" prefHeight="25.0" prefWidth="28.0" />
+                  <ImageView fx:id="distributorImageView" fitHeight="43.0" fitWidth="58.0" layoutX="347.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/distributorIcon.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="BOTTOM_CENTER" layoutX="339.0" layoutY="247.0" prefHeight="88.0" prefWidth="112.0" style="-fx-background-color: #D8BFD8;" text="Cashier">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="cashierTextField" disable="true" layoutX="419.0" layoutY="265.0" prefHeight="25.0" prefWidth="28.0" />
+                  <ImageView fx:id="cashierImageView" fitHeight="43.0" fitWidth="58.0" layoutX="347.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/cashierIcon.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="messageLabel" layoutX="5.0" layoutY="385.0" prefHeight="18.0" prefWidth="214.0" textFill="#f50202" />
+                  <Label fx:id="confirmPasswordLabel" layoutX="129.0" layoutY="337.0" prefHeight="18.0" prefWidth="102.0" textFill="#f80303" />
+                  <Label fx:id="successfullyLabel" layoutX="5.0" layoutY="460.0" prefHeight="18.0" prefWidth="214.0" textFill="#0ff807" />
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+      <AnchorPane layoutY="-1.0" prefHeight="36.0" prefWidth="782.0">
+         <children>
+            <Button fx:id="buttonExit" layoutX="756.0" layoutY="5.0" mnemonicParsing="false" style="-fx-background-color: #87CEFA;" text="X" />
+            <Label fx:id="titleLabel" layoutX="30.0" layoutY="5.0" text="Public Transport" />
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="busIconImageView" fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Images/bus.png" />
+         </image>
+      </ImageView>
+
    </children>
 </AnchorPane>

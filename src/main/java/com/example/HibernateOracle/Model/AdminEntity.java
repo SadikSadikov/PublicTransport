@@ -66,6 +66,7 @@ public class AdminEntity extends User implements Serializable {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     @Column(name = "lastname")
     public String getLastName() {
         return lastName;

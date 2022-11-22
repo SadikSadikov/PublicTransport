@@ -1,9 +1,7 @@
 package com.example.JFX.Controller;
 
-import com.example.HibernateOracle.DAO.AdminDao;
-import com.example.HibernateOracle.DAO.CustomerDao;
-import com.example.HibernateOracle.Model.AdminEntity;
-import com.example.HibernateOracle.Model.CustomerEntity;
+import com.example.HibernateOracle.DAO.*;
+import com.example.HibernateOracle.Model.*;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,8 +48,11 @@ public class RegisterController implements Initializable{
     public ImageView backImageView;
 
 
-    private final CustomerDao customerDao = new CustomerDao();
-    private final AdminDao adminDao = new AdminDao();
+    private final CustomerDAO customerDao = new CustomerDAO();
+    private final AdminDAO adminDao = new AdminDAO();
+    private final TravelCompanyDAO travelCompanyDAO = new TravelCompanyDAO();
+    private final CashierDAO cashierDAO = new CashierDAO();
+    private final DistributorDAO distributorDAO = new DistributorDAO();
     private Logger logger = LogManager.getLogger();
 
 
@@ -104,6 +105,7 @@ public class RegisterController implements Initializable{
         passwordField.setText("");
         confirmPasswordField.setText("");
         registerMessageLabel.setText("");
+        passwordNoMatchLabel.setText("");
     }
     @FXML
     public void backHyperlink(ActionEvent actionEvent) throws IOException {
@@ -121,17 +123,29 @@ public class RegisterController implements Initializable{
     private boolean isValidateLogin() {
         CustomerEntity customer = customerDao.getConnectedUser(userNameTextField.getText(), passwordField.getText());
         AdminEntity admin = adminDao.getConnectedAdmin(userNameTextField.getText(),passwordField.getText());
+        TravelCompanyEntity travelCompany = travelCompanyDAO.getConnectedUser(userNameTextField.getText(),passwordField.getText());
+        CashierEntity cashier = cashierDAO.getConnectedUser(userNameTextField.getText(),passwordField.getText());
+        DistributorEntity distributor = distributorDAO.getConnectedUser(userNameTextField.getText(),passwordField.getText());
         if (customer != null) {
             return false;
         }
         if(admin != null){
             return false;
         }
+        if(travelCompany != null){
+            return false;
+        }
+        if(cashier != null){
+            return false;
+        }
+        if(distributor != null){
+            return false;
+        }
         return true;
     }
 
     private boolean isCheckForEqualPassword(){
-        return !(passwordField.getText().equals(passwordNoMatchLabel.getText()));
+        return passwordField.getText().equals(confirmPasswordField.getText());
     }
 
     private boolean isCreated(){
@@ -144,11 +158,9 @@ public class RegisterController implements Initializable{
         Image securityImage = new Image(securityFile.toURI().toString());
         securityImageView.setImage(securityImage);
 
-        File backFile = new File("Images/BackIcon.jpg");
+        File backFile = new File("Images/back.png");
         Image backImage = new Image(backFile.toURI().toString());
         backImageView.setImage(backImage);
     }
-
-
 
 }

@@ -1,0 +1,22 @@
+
+p	java:S116"VRename this field "customer_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±®‹Ìÿÿÿÿÿ
+c	java:S100#"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ïÉê¯
+h	java:S100'"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(å££ûÿÿÿÿ
+P
+java:S1161+":Add the "@Override" annotation above this method signature(â„ô
+P
+java:S1161/":Add the "@Override" annotation above this method signature(«Æë
+U
+java:S11613":Add the "@Override" annotation above this method signature(“–²ùÿÿÿÿ
+P
+java:S11617":Add the "@Override" annotation above this method signature(ƒßù
+O
+java:S1161;":Add the "@Override" annotation above this method signature(şŒÒ^
+P
+java:S1161?":Add the "@Override" annotation above this method signature(ı‰ñÍ
+U
+java:S1161C":Add the "@Override" annotation above this method signature(¼êÉ‡ıÿÿÿÿ
+O
+java:S1161G":Add the "@Override" annotation above this method signature(ï““<
+k	java:S117'"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(å££ûÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ù¶­©ÿÿÿÿÿ

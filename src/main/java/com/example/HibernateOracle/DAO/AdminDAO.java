@@ -7,7 +7,7 @@ import com.example.HibernateOracle.Utility.HibernateUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-public class AdminDao implements DAOInterface<AdminEntity>{
+public class AdminDAO implements DAOInterface<AdminEntity>{
     @Override
     public boolean addData(AdminEntity data) {
         return false;
