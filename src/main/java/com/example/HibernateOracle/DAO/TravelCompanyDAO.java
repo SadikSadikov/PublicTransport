@@ -1,6 +1,5 @@
 package com.example.HibernateOracle.DAO;
 
-import com.example.HibernateOracle.Model.CustomerEntity;
 import com.example.HibernateOracle.Model.TravelCompanyEntity;
 import com.example.HibernateOracle.Utility.HibernateUtil;
 
@@ -8,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TravelCompanyDAO implements DAOInterface<TravelCompanyEntity>{
 
@@ -33,13 +34,13 @@ public class TravelCompanyDAO implements DAOInterface<TravelCompanyEntity>{
     }
 
     @Override
-    public void getData(int id) {
-
+    public TravelCompanyEntity getData(int id) {
+        return null;
     }
 
     @Override
-    public TravelCompanyEntity deleteData(TravelCompanyEntity data) {
-        return null;
+    public void deleteData(int data) {
+
     }
 
     @Override
@@ -70,5 +71,30 @@ public class TravelCompanyDAO implements DAOInterface<TravelCompanyEntity>{
             System.out.println(e);;
             return 0L;
         }
+    }
+
+    public int getIdWithName(String username){
+        try{
+            EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
+            Query query = entityManager.createQuery("SELECT t.tc_id FROM TravelCompanyEntity t WHERE t.userName = :username");
+            query.setParameter("username",username);
+            return (int) query.getSingleResult();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return 0;
+        }
+    }
+
+    public List<String> getNamesOfTC(){
+        try{
+            EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
+            return entityManager.createQuery("SELECT t.userName FROM TravelCompanyEntity t",String.class).getResultList();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return new ArrayList<>();
+        }
+
     }
 }

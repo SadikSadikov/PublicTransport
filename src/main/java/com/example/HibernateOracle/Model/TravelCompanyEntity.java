@@ -1,10 +1,11 @@
 package com.example.HibernateOracle.Model;
-
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "TravelCompany")
@@ -18,6 +19,13 @@ public class TravelCompanyEntity extends User implements Serializable {
     private String userName;
     private String password;
 
+    @OneToMany(targetEntity = TravelEntity.class,cascade = CascadeType.ALL,mappedBy = "id_tc" ,fetch = FetchType.EAGER)
+    private List<TravelEntity> id_tc = new ArrayList<>();
+
+    @OneToMany(targetEntity = MessagesEntity.class,cascade = CascadeType.ALL,mappedBy = "id_tc_M" ,fetch = FetchType.EAGER)
+    private List<MessagesEntity> id_tc_M = new ArrayList<>();
+
+
     public TravelCompanyEntity(String firstName, String lastName, String userName, String password) {
         super(firstName, lastName, userName, password);
         this.firstName = firstName;
@@ -26,6 +34,7 @@ public class TravelCompanyEntity extends User implements Serializable {
         this.password = password;
 
     }
+
 
     public TravelCompanyEntity() {
     }
@@ -77,6 +86,10 @@ public class TravelCompanyEntity extends User implements Serializable {
         this.password = password;
     }
 
+    public void setId_tc(TravelEntity id_tc) {
+        this.id_tc.add(id_tc);
+    }
+
     @Override
     public String toString() {
         return "TravelCompany{" +
@@ -87,4 +100,5 @@ public class TravelCompanyEntity extends User implements Serializable {
                 ", password='" + password + '\'' +
                 "} ";
     }
+
 }

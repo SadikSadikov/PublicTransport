@@ -6,6 +6,7 @@ public abstract class User {
     private String userName;
     private String password;
 
+
     public User(String firstName, String lastName, String userName, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,4 +48,6 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

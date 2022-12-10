@@ -1,6 +1,7 @@
 package com.example.JFX.Controller;
 
 import com.example.Helpers.CurrentUser;
+import com.example.Helpers.Log4j;
 import com.example.HibernateOracle.DAO.*;
 import com.example.HibernateOracle.Model.*;
 import javafx.animation.PauseTransition;
@@ -68,6 +69,7 @@ public class LoginController implements Initializable {
         loginMessageLabel.setText("Welcome, " + CurrentUser.getUser().getFirstName() + " " +
                 CurrentUser.getUser().getLastName());
 
+        Log4j.logger.info("User named:" + CurrentUser.getUser().getUserName() + " is logged in");
         PauseTransition delay = new PauseTransition(Duration.seconds(2));
         delay.setOnFinished( event2 -> {
             try {

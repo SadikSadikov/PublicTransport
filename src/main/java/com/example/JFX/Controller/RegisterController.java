@@ -1,5 +1,6 @@
 package com.example.JFX.Controller;
 
+import com.example.Helpers.Log4j;
 import com.example.HibernateOracle.DAO.*;
 import com.example.HibernateOracle.Model.*;
 import javafx.animation.PauseTransition;
@@ -53,9 +54,6 @@ public class RegisterController implements Initializable{
     private final TravelCompanyDAO travelCompanyDAO = new TravelCompanyDAO();
     private final CashierDAO cashierDAO = new CashierDAO();
     private final DistributorDAO distributorDAO = new DistributorDAO();
-    private Logger logger = LogManager.getLogger();
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,7 +84,7 @@ public class RegisterController implements Initializable{
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished( event2 -> {
                 try {
-                    logger.info("Successfully created account with username: " + userNameTextField.getText());
+                    Log4j.logger.info("Successfully created customer with username: " + userNameTextField.getText());
                     SceneController.getLoginScene(actionEvent);
                 } catch (IOException e) {
                     System.out.println(e);

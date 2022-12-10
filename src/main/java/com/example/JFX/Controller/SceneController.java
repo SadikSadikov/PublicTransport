@@ -56,6 +56,14 @@ public class SceneController {
         changeScreen(event,ScenePath.HOME_DISTRIBUTOR.getPath(),IconPath.MAIN.getPath());
     }
 
+    public static void getBuyingTicketsScene(ActionEvent event) throws IOException {
+        changeScreen(event,ScenePath.BUYING_TICKETS.getPath(),IconPath.MAIN.getPath());
+    }
+
+    public static void getUsersScene(ActionEvent actionEvent) throws IOException {
+        changeScreen(actionEvent,ScenePath.USERS.getPath(), IconPath.MAIN.getPath());
+    }
+
     private static void changeScreen(ActionEvent event, String fxmlPath,String iconPath) throws IOException {
         main = FXMLLoader.load(SceneController.class.getResource(fxmlPath));
         Scene visitScene = new Scene(main);

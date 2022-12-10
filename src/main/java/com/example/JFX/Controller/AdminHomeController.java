@@ -1,14 +1,20 @@
 package com.example.JFX.Controller;
 
+import com.example.Helpers.CurrentTime;
 import com.example.Helpers.CurrentUser;
+import com.example.Helpers.Log4j;
+import com.example.Helpers.Travels.UnsoldTicketsNotification;
 import com.example.HibernateOracle.DAO.*;
 import com.example.HibernateOracle.Model.*;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,7 +26,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AdminHomeController implements Initializable {
     @FXML
@@ -91,22 +97,35 @@ public class AdminHomeController implements Initializable {
     public Button refreshButton;
     @FXML
     public ImageView refreshImageView;
+    @FXML
+    public Button buttonReferences;
+    @FXML
+    public ImageView usersImageView;
+    @FXML
+    public BarChart purchasedTicketsChart;
 
     private final CustomerDAO customerDao = new CustomerDAO();
     private final AdminDAO adminDao = new AdminDAO();
     private final TravelCompanyDAO travelCompanyDAO = new TravelCompanyDAO();
     private final CashierDAO cashierDAO = new CashierDAO();
     private final DistributorDAO distributorDAO = new DistributorDAO();
-    private Logger logger = LogManager.getLogger();
+    private final TravelDAO travelDAO = new TravelDAO();
+    private final PurchasedTicketsDAO purchasedTicketsDAO = new PurchasedTicketsDAO();
+
     private String choiceComboBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         exit();
         setTexts();
+        systemNotification();
+
+
+
     }
     @FXML
     public void buttonLogout(ActionEvent actionEvent) throws IOException {
+        Log4j.logger.warn("User named:" + CurrentUser.getUser().getUserName() + " has logged out ");
         SceneController.getLoginScene(actionEvent);
     }
     @FXML
@@ -144,11 +163,10 @@ public class AdminHomeController implements Initializable {
             confirmPasswordLabel.setText("");
             messageLabel.setText("");
             successfullyLabel.setText("Successfully created!");
+            Log4j.logger.info("Successfully created account with username: " + userNameTextField.getText());
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished( event2 -> {
-                logger.info("Successfully created account with username: " + userNameTextField.getText());
                 successfullyLabel.setText("");
-
             });
             delay.play();
         }
@@ -168,7 +186,14 @@ public class AdminHomeController implements Initializable {
         SceneController.getAdminHomeScene(actionEvent);
     }
 
+    @FXML
+    public void buttonReferences(ActionEvent actionEvent) throws IOException {
+        SceneController.getUsersScene(actionEvent);
+    }
+
     private void setTexts(){
+        fillPurchasedTicketsChart();
+
         welcomeLabel.setText("Welcome, " + "\n"+CurrentUser.getUser().getUserName());
 
         ObservableList<String> addEmployeeList = FXCollections.observableArrayList("TravelCompany","Distributor","Cashier");
@@ -217,6 +242,11 @@ public class AdminHomeController implements Initializable {
         File refreshFile = new File("Images/refresh.png");
         Image refreshImage = new Image(refreshFile.toURI().toString());
         refreshImageView.setImage(refreshImage);
+
+
+        File usersFile = new File("Images/user.png");
+        Image usersImage = new Image(usersFile.toURI().toString());
+        usersImageView.setImage(usersImage);
 
     }
     private void exit() {
@@ -283,5 +313,59 @@ public class AdminHomeController implements Initializable {
         return String.valueOf(distributorDAO.getNumberOfDistributor());
     }
 
+    private void fillPurchasedTicketsChart(){
+
+        XYChart.Series series = new XYChart.Series();
+
+        series.setName(CurrentTime.getTime().toString());
+        for(int i = 0 ; i < customerDao.getNameTop5Customer().size() ; i++){
+            series.getData().add(new XYChart.Data(customerDao.getNameTop5Customer().get(i),customerDao.getNumberOfTicketsTop5Customer().get(i)));
+        }
+
+        purchasedTicketsChart.getData().addAll(series);
+
+    }
+
+    private void systemNotification(){
+        int count = UnsoldTicketsNotification.unsoldTicketsNotification(CurrentTime.getTime(),travelDAO.getTravelsWithUnsoldTickets());
+        if(count != 0){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Travel Status:");
+            alert.setContentText("You have unsold tickets" + " - " + count);
+            alert.show();
+        }
+
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 15);
+        calendar.set(Calendar.SECOND, 15);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    int sumPurchasedTickets = 0;
+                    for(Integer i:purchasedTicketsDAO.getTotalPurchasedTickets()){
+                        sumPurchasedTickets += i;
+                    }
+
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setHeaderText("Travel Status:");
+                    alert.setContentText("Purchase tickets" + " - " + sumPurchasedTickets);
+                    alert.show();
+
+                });
+                timer.purge();
+                timer.cancel();
+
+            }
+        }, calendar.getTime(), 86400000);
+        //24hrs == 86400000ms
+    }
 
 }

@@ -14,11 +14,13 @@
             </Policies>
             <DefaultRolloverStrategy max="200" />
         </RollingFile>
+
     </Appenders>
     <Loggers>
         <Logger name="com" level="INFO" additivity="false">
             <appender-ref ref="rolling"/>
         </Logger>
+
     </Loggers>
 
 </Configuration>

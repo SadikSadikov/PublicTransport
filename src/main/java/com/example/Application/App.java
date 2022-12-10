@@ -1,5 +1,7 @@
 package com.example.Application;
 
+import com.example.HibernateOracle.Model.TravelCompanyEntity;
+import com.example.HibernateOracle.Model.TravelEntity;
 import com.example.HibernateOracle.Utility.HibernateUtil;
 import com.example.JFX.Controller.SceneController;
 import javafx.application.Application;

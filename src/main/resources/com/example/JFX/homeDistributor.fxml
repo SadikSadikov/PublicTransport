@@ -1,20 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.JFX.Controller.DistributorHomeController">
     <children>
-        <Button fx:id="buttonLogout" layoutX="14.0" layoutY="530.0" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="35.0" prefWidth="94.0" text="Log Out">
-            <graphic>
-                <ImageView fx:id="logoutImageView" fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../../../Images/Logout.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
+      <AnchorPane layoutX="1.0" layoutY="42.0" prefHeight="542.0" prefWidth="114.0" style="-fx-background-color: #87CEFA;">
+         <children>
+             <Button fx:id="refreshButton" layoutY="1.0" mnemonicParsing="false" onAction="#refreshButton" style="-fx-background-color: #00FFFF;">
+                 <graphic>
+                     <ImageView fx:id="refreshImageView" fitHeight="30.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@../../../../../../Images/refresh.png" />
+                         </image>
+                     </ImageView>
+                 </graphic>
+             </Button>
+              <Button fx:id="buttonLogout" layoutX="-2.0" layoutY="488.0" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="39.0" prefWidth="114.0" style="-fx-background-color: #00FFFF;" text="Log Out">
+                  <graphic>
+                      <ImageView fx:id="logoutImageView" fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../../../../../../Images/Logout.png" />
+                          </image>
+                      </ImageView>
+                  </graphic>
+              </Button>
+            <ImageView fx:id="distributorImageView" fitHeight="82.0" fitWidth="103.0" layoutX="16.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../Images/distributorIcon.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="welcomeLabel" layoutX="5.0" layoutY="145.0" prefHeight="46.0" prefWidth="102.0" />
+            <Button fx:id="buttonDashboard" layoutX="-3.0" layoutY="222.0" mnemonicParsing="false" onAction="#buttonDashboard" prefHeight="39.0" prefWidth="114.0" style="-fx-background-color: #00FFFF;" text="Dashboard">
+               <graphic>
+                  <ImageView fx:id="dashboardImageView" fitHeight="26.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/dashboard.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="buttonRequestTickets" layoutX="-3.0" layoutY="271.0" mnemonicParsing="false" onAction="#buttonRequestTickets" prefHeight="39.0" prefWidth="114.0" style="-fx-background-color: #00FFFF;" text="RequestTickets">
+               <graphic>
+                  <ImageView fx:id="ticketsImageView" fitHeight="24.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/plane-tickets.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="buttonTravels" alignment="TOP_LEFT" layoutX="-3.0" layoutY="316.0" mnemonicParsing="false" onAction="#buttonTravels" prefHeight="39.0" prefWidth="114.0" style="-fx-background-color: #00FFFF;" text="Travels">
+               <graphic>
+                  <ImageView fx:id="travelsImageView" fitHeight="29.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/travelcompany.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children></AnchorPane>
+        <AnchorPane layoutY="-1.0" prefHeight="36.0" prefWidth="782.0">
+            <children>
+                <Button fx:id="buttonExit" layoutX="756.0" layoutY="5.0" mnemonicParsing="false" style="-fx-background-color: #87CEFA;" text="X" />
+                <Label fx:id="titleLabel" layoutX="30.0" layoutY="5.0" text="Public Transport" />
+            </children>
+        </AnchorPane>
+        <ImageView fx:id="busIconImageView" fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../Images/bus.png" />
+            </image>
+        </ImageView>
+      <AnchorPane fx:id="dashboardAnchorPane" layoutX="116.0" layoutY="42.0" prefHeight="542.0" prefWidth="660.0" visible="false" />
+        <AnchorPane fx:id="requestTicketsAnchorPane" layoutX="116.0" layoutY="42.0" prefHeight="542.0" prefWidth="660.0" visible="false">
+         <children>
+            <TableView fx:id="travelTable" layoutY="123.0" onMouseClicked="#clickTakeRow" prefHeight="412.0" prefWidth="660.0">
+               <columns>
+                  <TableColumn fx:id="typeOfTravelTC" prefWidth="84.0" text="TypeOfTravel" />
+                  <TableColumn fx:id="startingStationTC" prefWidth="93.0" text="StartingStation" />
+                  <TableColumn fx:id="dateOfDepartureTC" prefWidth="88.0" text="DateOfDeparture" />
+                  <TableColumn fx:id="dateOfArrivalTC" prefWidth="84.0" text="DateOfArrival" />
+                  <TableColumn fx:id="numberOfPlacesTC" prefWidth="104.0" text="NumberOfPlaces" />
+                  <TableColumn fx:id="modeOfTransportTC" minWidth="3.0" prefWidth="106.0" text="ModeOfTransport" />
+                  <TableColumn fx:id="ticketLimitTC" minWidth="0.0" prefWidth="68.0" text="TicketLimit" />
+                  <TableColumn fx:id="idTravel" prefWidth="36.7999267578125" text="ID" />
+               </columns>
+            </TableView>
+            <ComboBox fx:id="choiceCashierComboBox" layoutX="14.0" layoutY="40.0" onAction="#choiceCashierComboBox" prefWidth="150.0" />
+            <Button fx:id="addDataButton" layoutX="207.0" layoutY="35.0" mnemonicParsing="false" onAction="#addDataButton" prefHeight="36.0" prefWidth="82.0" text="ADD" />
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="150.0" text="Choice Cashier" />
+            <Label fx:id="messageLabel" layoutX="14.0" layoutY="83.0" />
+         </children></AnchorPane>
+        <AnchorPane fx:id="travelsAnchorPane" layoutX="118.0" layoutY="42.0" prefHeight="542.0" prefWidth="650.0" visible="true">
+         <children>
+            <DatePicker fx:id="fromDatePicker" layoutX="74.0" layoutY="66.0" />
+            <DatePicker fx:id="toDatePicker" layoutX="269.0" layoutY="66.0" />
+            <Label layoutX="74.0" layoutY="40.0" prefHeight="17.0" prefWidth="174.0" text="FROM Date" />
+            <Label layoutX="269.0" layoutY="40.0" prefHeight="17.0" prefWidth="174.0" text="TO Date" />
+            <Button fx:id="buttonShow" layoutX="239.0" layoutY="394.0" mnemonicParsing="false" onAction="#buttonShow" prefHeight="36.0" prefWidth="86.0" text="SHOW" />
+            <TableView fx:id="travelsTable" layoutX="92.0" layoutY="152.0" prefHeight="212.0" prefWidth="354.0">
+               <columns>
+                  <TableColumn fx:id="modeOfTransportColumn" prefWidth="106.0" text="ModeOfTransport" />
+                  <TableColumn fx:id="startingStationColumn" prefWidth="96.0" text="StartingStation" />
+                  <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+               </columns>
+            </TableView>
+            <ComboBox fx:id="travelCompanyComboBox" layoutX="475.0" layoutY="66.0" onAction="#travelCompanyComboBox" prefWidth="150.0" />
+            <Label layoutX="474.0" layoutY="40.0" prefHeight="17.0" prefWidth="150.0" text="Travel Company " />
+         </children></AnchorPane>
     </children>
 </AnchorPane>

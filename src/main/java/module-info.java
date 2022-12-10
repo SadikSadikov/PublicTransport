@@ -12,5 +12,6 @@ module PublicTransport {
     opens com.example.Application;
     opens com.example.HibernateOracle.Model;
     opens com.example.JFX.Controller;
+    opens com.example.Helpers.Travels;
 
 }

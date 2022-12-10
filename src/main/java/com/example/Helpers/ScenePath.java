@@ -7,7 +7,9 @@ public enum ScenePath {
     HOME_ADMIN("/com/example/JFX/homeAdmin.fxml"),
     HOME_TRAVEL_COMPANY("/com/example/JFX/homeTC.fxml"),
     HOME_CASHIER("/com/example/JFX/homeCashier.fxml"),
-    HOME_DISTRIBUTOR("/com/example/JFX/homeDistributor.fxml");
+    HOME_DISTRIBUTOR("/com/example/JFX/homeDistributor.fxml"),
+    BUYING_TICKETS("/com/example/JFX/fromForBuyingTicket.fxml"),
+    USERS("/com/example/JFX/users.fxml");
 
 
     private final String path;

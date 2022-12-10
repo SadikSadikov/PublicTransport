@@ -6,6 +6,9 @@ import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CashierDAO implements DAOInterface<CashierEntity>{
     @Override
@@ -30,13 +33,13 @@ public class CashierDAO implements DAOInterface<CashierEntity>{
     }
 
     @Override
-    public void getData(int id) {
-
+    public CashierEntity getData(int id) {
+        return null;
     }
 
     @Override
-    public CashierEntity deleteData(CashierEntity data) {
-        return null;
+    public void deleteData(int data) {
+
     }
 
     @Override
@@ -66,6 +69,45 @@ public class CashierDAO implements DAOInterface<CashierEntity>{
         } catch (Exception e) {
             System.out.println(e);;
             return 0L;
+        }
+    }
+
+    public List<String> getNamesOfCashier(){
+        try{
+            EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
+            return entityManager.createQuery("SELECT c.userName FROM CashierEntity c",String.class).setFirstResult(1).getResultList();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return new ArrayList<>();
+        }
+
+    }
+
+    public int getIdWithName(String username){
+        try{
+            EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
+            Query query = entityManager.createQuery("SELECT c.cashier_id FROM CashierEntity c WHERE c.userName = :username");
+            query.setParameter("username",username);
+            return (int) query.getSingleResult();
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return 0;
+        }
+    }
+
+    public List<CashierEntity> getCashierWithDate(LocalDate firstDate, LocalDate secondDate){
+        try {
+            EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
+            TypedQuery<CashierEntity> query = entityManager.createQuery("FROM CashierEntity c WHERE c.date_cashier >= :firstDate AND c.date_cashier <= :secondDate", CashierEntity.class);
+            query.setParameter("firstDate", firstDate);
+            query.setParameter("secondDate",secondDate);
+            return query.getResultList();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return new ArrayList<>();
         }
     }
 }

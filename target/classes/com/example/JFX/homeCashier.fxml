@@ -1,20 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.JFX.Controller.CashierHomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.JFX.Controller.CashierHomeController">
     <children>
-        <Button fx:id="buttonLogout" layoutX="14.0" layoutY="534.0" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="35.0" prefWidth="94.0" text="Log Out">
-            <graphic>
-                <ImageView fx:id="logoutImageView" fitHeight="38.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+
+        <AnchorPane layoutX="-8.0" layoutY="35.0" prefHeight="551.0" prefWidth="114.0" style="-fx-background-color: #BDB76B;">
+            <children>
+                <ImageView fx:id="cashierImageView" fitHeight="115.0" fitWidth="111.0" layoutX="3.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../../../Images/Logout.png" />
+                        <Image url="@../../../../../../Images/cashierIcon.png" />
                     </image>
                 </ImageView>
-            </graphic>
-        </Button>
+                <Button fx:id="refreshButton" layoutY="1.0" mnemonicParsing="false" onAction="#refreshButton" style="-fx-background-color: #556B2F;">
+                    <graphic>
+                        <ImageView fx:id="refreshImageView" fitHeight="30.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../../../Images/refresh.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="buttonLogout" layoutX="3.0" layoutY="482.0" mnemonicParsing="false" onAction="#buttonLogout" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #556B2F;" text="Log Out">
+                    <graphic>
+                        <ImageView fx:id="logoutImageView" fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../../../Images/Logout.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="dashboardButton" layoutX="3.0" layoutY="245.0" mnemonicParsing="false" onAction="#dashboardButton" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #556B2F;" text="Dashboard">
+                    <graphic>
+                        <ImageView fx:id="dashboardImageView" fitHeight="29.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../../../Images/dashboard.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            <Button fx:id="addTicketsButton" layoutX="3.0" layoutY="291.0" mnemonicParsing="false" onAction="#addTicketsButton" prefHeight="39.0" prefWidth="102.0" style="-fx-background-color: #556B2F;" text="Add Tickets">
+               <graphic>
+                  <ImageView fx:id="ticketsImageView" fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Images/plane-tickets.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="editCashierAnchorPane" layoutX="106.0" layoutY="37.0" prefHeight="539.0" prefWidth="742.0" visible="false">
+            <children>
+                <TableView fx:id="editTable" layoutX="14.0" layoutY="14.0" onMouseClicked="#selectTravel" prefHeight="200.0" prefWidth="660.0">
+                    <columns>
+                        <TableColumn fx:id="typeOfTravelColumn" prefWidth="84.7999849319458" text="TypeOfTravel" />
+                        <TableColumn fx:id="startingStationColumn" prefWidth="93.5999755859375" text="StartingStation" />
+                        <TableColumn fx:id="dateOfDepartureColumn" prefWidth="106.4000244140625" text="DateOfDeparture" />
+                        <TableColumn fx:id="dateOfArrivalColumn" prefWidth="95.20001220703125" text="DateOfArrival" />
+                        <TableColumn fx:id="modeOfTransportColumn" prefWidth="113.60000610351562" text="Mode Of Transport" />
+                        <TableColumn fx:id="ticketsColumn" prefWidth="48.0" text="Tickets" />
+                        <TableColumn fx:id="terminalStationColumn" prefWidth="115.2000732421875" text="Terminal Station" />
+                    </columns>
+                </TableView>
+                <Button fx:id="insertButton" layoutX="14.0" layoutY="230.0" mnemonicParsing="false" onAction="#insertButton" prefHeight="36.0" prefWidth="68.0" text="Insert" />
+            <Label fx:id="messageLabel" layoutX="109.0" layoutY="234.0" prefHeight="26.0" prefWidth="194.0" />
+            <AnchorPane fx:id="dashboardAnchorPane" layoutX="5.0" layoutY="8.0" prefHeight="551.0" prefWidth="731.0" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutY="-1.0" prefHeight="36.0" prefWidth="782.0">
+            <children>
+                <Button fx:id="buttonExit" layoutX="819.0" layoutY="6.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #87CEFA;" text="X" />
+                <Label fx:id="titleLabel" layoutX="30.0" layoutY="5.0" text="Public Transport" />
+            </children>
+        </AnchorPane>
+        <ImageView fx:id="busIconImageView" fitHeight="26.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../../../../Images/bus.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>

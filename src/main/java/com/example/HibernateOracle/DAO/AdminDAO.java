@@ -1,7 +1,6 @@
 package com.example.HibernateOracle.DAO;
 
 import com.example.HibernateOracle.Model.AdminEntity;
-import com.example.HibernateOracle.Model.CustomerEntity;
 import com.example.HibernateOracle.Utility.HibernateUtil;
 
 import javax.persistence.EntityManager;
@@ -14,13 +13,13 @@ public class AdminDAO implements DAOInterface<AdminEntity>{
     }
 
     @Override
-    public void getData(int id) {
-
+    public AdminEntity getData(int id) {
+        return null;
     }
 
     @Override
-    public AdminEntity deleteData(AdminEntity data) {
-        return null;
+    public void deleteData(int data) {
+
     }
 
     @Override
