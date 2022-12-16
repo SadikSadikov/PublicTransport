@@ -1,0 +1,32 @@
+
+o	java:S116"URename this field "cashier_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Òˆ½üÿÿÿÿ
+l	java:S116"WRename this field "date_cashier" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃÔü†
+r	java:S116"XRename this field "id_cashier_PT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÌÇ¡òøÿÿÿÿ
+q	java:S116"WRename this field "id_cashier_T" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­İâÁûÿÿÿÿ
+h	java:S1001"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶§İ¾ıÿÿÿÿ
+c	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š½ƒÆ
+P
+java:S11619":Add the "@Override" annotation above this method signature(â„ô
+P
+java:S1161>":Add the "@Override" annotation above this method signature(«Æë
+U
+java:S1161C":Add the "@Override" annotation above this method signature(“–²ùÿÿÿÿ
+P
+java:S1161G":Add the "@Override" annotation above this method signature(ƒßù
+O
+java:S1161L":Add the "@Override" annotation above this method signature(şŒÒ^
+P
+java:S1161Q":Add the "@Override" annotation above this method signature(ı‰ñÍ
+U
+java:S1161V":Add the "@Override" annotation above this method signature(¼êÉ‡ıÿÿÿÿ
+O
+java:S1161[":Add the "@Override" annotation above this method signature(ï““<
+c	java:S100_"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½×ãØ
+c	java:S100c"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³¡øù
+h	java:S100h"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û§šşûÿÿÿÿ
+c	java:S100l"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚­Ñ´
+f	java:S1175"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š½ƒÆ
+f	java:S117_"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½×ãØ
+f	java:S117c"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³¡øù
+f	java:S117l"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚­Ñ´
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ù¶­©ÿÿÿÿÿ

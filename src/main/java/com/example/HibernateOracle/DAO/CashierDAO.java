@@ -38,8 +38,8 @@ public class CashierDAO implements DAOInterface<CashierEntity>{
     }
 
     @Override
-    public void deleteData(int data) {
-
+    public boolean deleteData(int data) {
+        return false;
     }
 
     @Override

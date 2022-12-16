@@ -24,7 +24,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -250,12 +249,18 @@ public class TCHomeController implements Initializable {
     }
     @FXML
     public void clickTakeRow(MouseEvent mouseEvent) {
-        ObservableList<MessagesEntity> messageEntityObservableList;
-        messageEntityObservableList = messageTable.getSelectionModel().getSelectedItems();
+        try{
+            ObservableList<MessagesEntity> messageEntityObservableList;
+            messageEntityObservableList = messageTable.getSelectionModel().getSelectedItems();
 
-        messageID = messageEntityObservableList.get(0).getId_message();
-        cashierName = messageEntityObservableList.get(0).getRequest();
-        idTravel = messageEntityObservableList.get(0).getId_travel_M();
+            messageID = messageEntityObservableList.get(0).getId_message();
+            cashierName = messageEntityObservableList.get(0).getRequest();
+            idTravel = messageEntityObservableList.get(0).getId_travel_M();
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+
     }
     @FXML
     public void deleteMessageButton(ActionEvent actionEvent) {
@@ -272,7 +277,7 @@ public class TCHomeController implements Initializable {
 
     @FXML
     public void buttonCancelTravel(ActionEvent actionEvent) {
-        if(travelDAO.updateStatus(Status.FALSE.getStatus(), idTravelForDelete)){
+        if(travelDAO.deleteData(idTravelForDelete)){
             cancelledMessageLabel.setTextFill(Color.GREEN);
             cancelledMessageLabel.setText("Successfully cancelled travel: ");
             SendingNotifications.sendingNotifications(NotificationsPath.DISTRIBUTOR_CANCEL_TRAVEL_FILE.getPath(), idTravelForDelete+" id travel is cancelled");
@@ -301,31 +306,31 @@ public class TCHomeController implements Initializable {
         ObservableList<String> modeOfTransportList = FXCollections.observableArrayList(ModeOfTransport.BUS.getMode(),ModeOfTransport.TRAIN.getMode());
         comboBoxModeOfTransport.setItems(modeOfTransportList);
 
-        File logoutFile = new File("Images/Logout.png");
+        File logoutFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\Logout.png");
         Image logoutImage = new Image(logoutFile.toURI().toString());
         logoutImageView.setImage(logoutImage);
 
-        File busFile = new File("Images/bus.png");
+        File busFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\bus.png");
         Image busImage = new Image(busFile.toURI().toString());
         busIconImageView.setImage(busImage);
 
-        File refreshFile = new File("Images/refresh.png");
+        File refreshFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\refresh.png");
         Image refreshImage = new Image(refreshFile.toURI().toString());
         refreshImageView.setImage(refreshImage);
 
-        File travelFile = new File("Images/travelcompany.png");
+        File travelFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\travelcompany.png");
         Image travelImage = new Image(travelFile.toURI().toString());
         travelCompanyImageView.setImage(travelImage);
 
-        File travelIconFile = new File("Images/travelcompany.png");
+        File travelIconFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\travelcompany.png");
         Image travelIconImage = new Image(travelIconFile.toURI().toString());
         travelImageView.setImage(travelIconImage);
 
-        File dashboardFile = new File("Images/dashboard.png");
+        File dashboardFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\dashboard.png");
         Image dashboardImage = new Image(dashboardFile.toURI().toString());
         dashboardImageView.setImage(dashboardImage);
 
-        File messageFile = new File("Images/meassages.png");
+        File messageFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\meassages.png");
         Image messageImage = new Image(messageFile.toURI().toString());
         messageImageView.setImage(messageImage);
     }

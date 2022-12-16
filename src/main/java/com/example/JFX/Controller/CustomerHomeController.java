@@ -64,23 +64,23 @@ public class CustomerHomeController implements Initializable {
     private void setTexts(){
         welcomeLabel.setText("Welcome, "+ CurrentUser.getUser().getUserName());
 
-        File logoutFile = new File("Images/Logout.png");
+        File logoutFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\Logout.png");
         Image logoutImage = new Image(logoutFile.toURI().toString());
         logoutImageView.setImage(logoutImage);
 
-        File userFile = new File("Images/user.png");
+        File userFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\user.png");
         Image userImage = new Image(userFile.toURI().toString());
         customerImageView.setImage(userImage);
 
-        File refreshFile = new File("Images/refresh.png");
+        File refreshFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\refresh.png");
         Image refreshImage = new Image(refreshFile.toURI().toString());
         refreshImageView.setImage(refreshImage);
 
-        File busFile = new File("Images/bus.png");
+        File busFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\bus.png");
         Image busImage = new Image(busFile.toURI().toString());
         busIconImageView.setImage(busImage);
 
-        File dashboardFile = new File("Images/dashboard.png");
+        File dashboardFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\dashboard.png");
         Image dashboardImage = new Image(dashboardFile.toURI().toString());
         dashboardImageView.setImage(dashboardImage);
 

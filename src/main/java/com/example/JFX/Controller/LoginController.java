@@ -1,5 +1,6 @@
 package com.example.JFX.Controller;
 
+import com.example.Helpers.CurrentTime;
 import com.example.Helpers.CurrentUser;
 import com.example.Helpers.Log4j;
 import com.example.HibernateOracle.DAO.*;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.DirectoryStream;
+import java.util.Currency;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -45,9 +47,11 @@ public class LoginController implements Initializable {
     private final TravelCompanyDAO travelCompanyDAO = new TravelCompanyDAO();
     private final CashierDAO cashierDAO = new CashierDAO();
     private final DistributorDAO distributorDAO = new DistributorDAO();
+    private final TravelDAO travelDAO = new TravelDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        removeExpiredTrips();
         setTexts();
         exit();
     }
@@ -158,9 +162,15 @@ public class LoginController implements Initializable {
     }
 
     private void setTexts(){
-        File lockFile = new File("Images/KeyLockImage.png");
+        File lockFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\KeyLockImage.png");
         Image lockImage = new Image(lockFile.toURI().toString());
         lockImageView.setImage(lockImage);
+    }
+
+    private void removeExpiredTrips(){
+        for(Integer i : travelDAO.removeExpiredTrips(CurrentTime.getTime())){
+            travelDAO.deleteData(i);
+        }
     }
 
 }

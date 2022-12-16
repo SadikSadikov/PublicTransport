@@ -42,7 +42,7 @@ class CashierDAOTest {
     void getNumberOfCashier() {
         System.out.println("Running testCreate...");
 
-        assertEquals(2,cashierDAO.getNumberOfCashier());
+        assertEquals(3,cashierDAO.getNumberOfCashier());
 
     }
 

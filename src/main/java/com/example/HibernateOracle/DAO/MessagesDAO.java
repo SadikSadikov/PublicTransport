@@ -37,7 +37,7 @@ public class MessagesDAO implements DAOInterface<MessagesEntity>{
     }
 
     @Override
-    public void deleteData(int idMessage) {
+    public boolean deleteData(int idMessage) {
         EntityTransaction transaction = null;
         try{
             EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
@@ -47,6 +47,7 @@ public class MessagesDAO implements DAOInterface<MessagesEntity>{
             query.setParameter("idMessage", idMessage);
             query.executeUpdate();
             transaction.commit();
+            return true;
         }
         catch (Exception e){
             if (transaction != null) {
@@ -54,6 +55,7 @@ public class MessagesDAO implements DAOInterface<MessagesEntity>{
             }
             System.out.println(e);
         }
+        return false;
     }
 
     @Override

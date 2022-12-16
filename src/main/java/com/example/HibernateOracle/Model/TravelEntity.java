@@ -41,9 +41,6 @@ public class TravelEntity implements Serializable {
     @JoinColumn(name = "id_tc")
     private int id_tc;
 
-    @OneToMany(targetEntity = PurchasedTicketsEntity.class,cascade = CascadeType.ALL,mappedBy = "id_travel_PT" ,fetch = FetchType.EAGER)
-    private List<PurchasedTicketsEntity> id_travel_PT = new ArrayList<>();
-
     @OneToMany(targetEntity = MessagesEntity.class,cascade = CascadeType.ALL,mappedBy = "id_travel_M" ,fetch = FetchType.EAGER)
     private List<MessagesEntity> id_travel_M = new ArrayList<>();
 
@@ -176,10 +173,6 @@ public class TravelEntity implements Serializable {
 
     public void setId_tc(int id_tc) {
         this.id_tc = id_tc;
-    }
-
-    public void setId_travel_PT(List<PurchasedTicketsEntity> id_travel_PT) {
-        this.id_travel_PT = id_travel_PT;
     }
 
     @Column(name = "terminalstation")

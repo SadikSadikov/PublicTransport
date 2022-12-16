@@ -1,6 +1,5 @@
 package com.example.HibernateOracle.DAO;
 
-import com.example.HibernateOracle.Model.CashierEntity;
 import com.example.HibernateOracle.Model.PurchasedTicketsEntity;
 import com.example.HibernateOracle.Utility.HibernateUtil;
 
@@ -39,8 +38,8 @@ public class PurchasedTicketsDAO implements DAOInterface<PurchasedTicketsEntity>
     }
 
     @Override
-    public void deleteData(int data) {
-
+    public boolean deleteData(int data) {
+        return false;
     }
 
     @Override

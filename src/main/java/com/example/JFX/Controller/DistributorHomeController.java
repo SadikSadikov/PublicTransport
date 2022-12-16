@@ -189,11 +189,17 @@ public class DistributorHomeController implements Initializable {
     }
     @FXML
     public void clickTakeRow(MouseEvent mouseEvent) {
-        ObservableList<TravelEntity> travelEntityObservableList;
-        travelEntityObservableList = travelTable.getSelectionModel().getSelectedItems();
+        try{
+            ObservableList<TravelEntity> travelEntityObservableList;
+            travelEntityObservableList = travelTable.getSelectionModel().getSelectedItems();
 
-        travelId = travelEntityObservableList.get(0).getId_travel();
-        idTC = travelEntityObservableList.get(0).getId_tc();
+            travelId = travelEntityObservableList.get(0).getId_travel();
+            idTC = travelEntityObservableList.get(0).getId_tc();
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+
 
     }
 
@@ -226,31 +232,31 @@ public class DistributorHomeController implements Initializable {
         ObservableList<String> tcChoice = FXCollections.observableArrayList(travelCompanyDAO.getNamesOfTC());
         travelCompanyComboBox.setItems(tcChoice);
 
-        File logoutFile = new File("Images/Logout.png");
+        File logoutFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\Logout.png");
         Image logoutImage = new Image(logoutFile.toURI().toString());
         logoutImageView.setImage(logoutImage);
 
-        File distributorFile = new File("Images/distributorIcon.png");
+        File distributorFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\distributorIcon.png");
         Image distributorImage = new Image(distributorFile.toURI().toString());
         distributorImageView.setImage(distributorImage);
 
-        File busFile = new File("Images/bus.png");
+        File busFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\bus.png");
         Image busImage = new Image(busFile.toURI().toString());
         busIconImageView.setImage(busImage);
 
-        File dashboardFile = new File("Images/dashboard.png");
+        File dashboardFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\dashboard.png");
         Image dashboardImage = new Image(dashboardFile.toURI().toString());
         dashboardImageView.setImage(dashboardImage);
 
-        File ticketsFile = new File("Images/plane-tickets.png");
+        File ticketsFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\plane-tickets.png");
         Image ticketsImage = new Image(ticketsFile.toURI().toString());
         ticketsImageView.setImage(ticketsImage);
 
-        File refreshFile = new File("Images/refresh.png");
+        File refreshFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\refresh.png");
         Image refreshImage = new Image(refreshFile.toURI().toString());
         refreshImageView.setImage(refreshImage);
 
-        File travelCompanyIconFile = new File("Images/travelcompany.png");
+        File travelCompanyIconFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\travelcompany.png");
         Image travelCompanyIconImage = new Image(travelCompanyIconFile.toURI().toString());
         travelsImageView.setImage(travelCompanyIconImage);
     }

@@ -16,9 +16,6 @@ public class PurchasedTicketsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int id_purchasedTickets;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_travel_PT")
     private int id_travel_PT;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -58,6 +55,7 @@ public class PurchasedTicketsEntity implements Serializable {
         this.id_purchasedTickets = id_purchasedTickets;
     }
 
+    @Column(name = "id_travel_pt")
     public int getId_travel_PT() {
         return id_travel_PT;
     }

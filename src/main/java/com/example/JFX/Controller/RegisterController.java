@@ -152,11 +152,11 @@ public class RegisterController implements Initializable{
     }
 
     private void setTexts(){
-        File securityFile = new File("Images/SecurityIcon.png");
+        File securityFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\SecurityIcon.png");
         Image securityImage = new Image(securityFile.toURI().toString());
         securityImageView.setImage(securityImage);
 
-        File backFile = new File("Images/back.png");
+        File backFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\back.png");
         Image backImage = new Image(backFile.toURI().toString());
         backImageView.setImage(backImage);
     }

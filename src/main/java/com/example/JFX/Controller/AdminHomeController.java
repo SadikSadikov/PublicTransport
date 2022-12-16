@@ -111,7 +111,6 @@ public class AdminHomeController implements Initializable {
     private final DistributorDAO distributorDAO = new DistributorDAO();
     private final TravelDAO travelDAO = new TravelDAO();
     private final PurchasedTicketsDAO purchasedTicketsDAO = new PurchasedTicketsDAO();
-
     private String choiceComboBox;
 
     @Override
@@ -203,48 +202,48 @@ public class AdminHomeController implements Initializable {
         distributorTextField.setText(getNumberOfDistributor());
         travelCompanyTextField.setText(getNumberOfTC());
 
-        File logoutFile = new File("Images/Logout.png");
+        File logoutFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\Logout.png");
         Image logoutImage = new Image(logoutFile.toURI().toString());
         logoutImageView.setImage(logoutImage);
 
-        File userFile = new File("Images/user.png");
+        File userFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\user.png");
         Image userImage = new Image(userFile.toURI().toString());
         userImageView.setImage(userImage);
 
-        File dashboardFile = new File("Images/dashboard.png");
+        File dashboardFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\dashboard.png");
         Image dashboardImage = new Image(dashboardFile.toURI().toString());
         dashboardImageView.setImage(dashboardImage);
 
-        File busFile = new File("Images/bus.png");
+        File busFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\bus.png");
         Image busImage = new Image(busFile.toURI().toString());
         busIconImageView.setImage(busImage);
 
-        File addEmployeeFile = new File("Images/addEmployee.png");
+        File addEmployeeFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\addEmployee.png");
         Image addEmployeeImage = new Image(addEmployeeFile.toURI().toString());
         addEmployeeImageView.setImage(addEmployeeImage);
 
-        File addEmployeeIconFile = new File("Images/addEmployee.png");
+        File addEmployeeIconFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\addEmployee.png");
         Image addEmployeeIconImage = new Image(addEmployeeIconFile.toURI().toString());
         addEmployeeIconImageView.setImage(addEmployeeIconImage);
 
-        File travelCompanyIconFile = new File("Images/travelcompany.png");
+        File travelCompanyIconFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\travelcompany.png");
         Image travelCompanyIconImage = new Image(travelCompanyIconFile.toURI().toString());
         travelCompanyImageView.setImage(travelCompanyIconImage);
 
-        File distributorFile = new File("Images/distributorIcon.png");
+        File distributorFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\distributorIcon.png");
         Image distributorImage = new Image(distributorFile.toURI().toString());
         distributorImageView.setImage(distributorImage);
 
-        File cashierFile = new File("Images/cashierIcon.png");
+        File cashierFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\cashierIcon.png");
         Image cashierImage = new Image(cashierFile.toURI().toString());
         cashierImageView.setImage(cashierImage);
 
-        File refreshFile = new File("Images/refresh.png");
+        File refreshFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\refresh.png");
         Image refreshImage = new Image(refreshFile.toURI().toString());
         refreshImageView.setImage(refreshImage);
 
 
-        File usersFile = new File("Images/user.png");
+        File usersFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\user.png");
         Image usersImage = new Image(usersFile.toURI().toString());
         usersImageView.setImage(usersImage);
 

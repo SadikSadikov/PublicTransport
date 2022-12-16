@@ -1,8 +1,6 @@
 package com.example.HibernateOracle.DAO;
 
-import com.example.HibernateOracle.Model.CashierEntity;
 import com.example.HibernateOracle.Model.CustomerEntity;
-import com.example.HibernateOracle.Model.TravelEntity;
 import com.example.HibernateOracle.Utility.HibernateUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -43,9 +41,8 @@ public class CustomerDAO implements DAOInterface<CustomerEntity> {
     }
 
     @Override
-    public void deleteData(int data) {
-
-
+    public boolean deleteData(int data) {
+        return false;
     }
 
     @Override

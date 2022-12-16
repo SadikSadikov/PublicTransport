@@ -139,27 +139,27 @@ public class CashierHomeController implements Initializable {
     }
 
     private void setTexts() {
-        File logoutFile = new File("Images/Logout.png");
+        File logoutFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\Logout.png");
         Image logoutImage = new Image(logoutFile.toURI().toString());
         logoutImageView.setImage(logoutImage);
 
-        File dashboardFile = new File("Images/dashboard.png");
+        File dashboardFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\dashboard.png");
         Image dashboardImage = new Image(dashboardFile.toURI().toString());
         dashboardImageView.setImage(dashboardImage);
 
-        File cashierFile = new File("Images/cashierIcon.png");
+        File cashierFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\cashierIcon.png");
         Image cashierImage = new Image(cashierFile.toURI().toString());
         cashierImageView.setImage(cashierImage);
 
-        File refreshFile = new File("Images/refresh.png");
+        File refreshFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\refresh.png");
         Image refreshImage = new Image(refreshFile.toURI().toString());
         refreshImageView.setImage(refreshImage);
 
-        File ticketFile = new File("Images/plane-tickets.png");
+        File ticketFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\plane-tickets.png");
         Image ticketImage = new Image(ticketFile.toURI().toString());
         ticketsImageView.setImage(ticketImage);
 
-        File busFile = new File("Images/bus.png");
+        File busFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\bus.png");
         Image busImage = new Image(busFile.toURI().toString());
         busIconImageView.setImage(busImage);
 

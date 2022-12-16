@@ -1,6 +1,7 @@
 package com.example.JFX.Controller;
 
 import com.example.Helpers.CurrentUser;
+import com.example.Helpers.Log4j;
 import com.example.Helpers.Travels.Destination;
 import com.example.Helpers.Travels.ModeOfTransport;
 import com.example.Helpers.Travels.Status;
@@ -16,8 +17,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -70,6 +73,14 @@ public class BuyingTicketsController implements Initializable {
     public ImageView stickManImageView;
     @FXML
     public ImageView cartoonTicketImageView;
+    @FXML
+    public CheckBox animationCheckBox;
+    @FXML
+    public TableView<TravelEntity> travelTableView;
+    @FXML
+    public TableColumn<TravelEntity,Long> idTravelColumn;
+    @FXML
+    public TableColumn<TravelEntity,Double> priceColumn;
 
     private final TravelDAO travelDAO = new TravelDAO();
     private final PurchasedTicketsDAO purchasedTicketsDAO = new PurchasedTicketsDAO();
@@ -80,7 +91,7 @@ public class BuyingTicketsController implements Initializable {
     private String terminalStationString;
     private int ticketsInteger;
     private String modeOfTransportString;
-    private int idTravel;
+    private int idTravel = 0;
 
 
     @FXML
@@ -96,21 +107,17 @@ public class BuyingTicketsController implements Initializable {
             messageLabel.setText("Fields can't be empty!");
             return;
         }
-        idTravel = travelDAO.searchTickets(typeOfTravelString,Date.valueOf(dateOfDepartureDatePicker.getValue()).toLocalDate() ,Date.valueOf(dateOfArrivalDatePicker.getValue()).toLocalDate(),startingStationString,terminalStationString,modeOfTransportString,Status.TRUE.getStatus());
-        if(idTravel != 0){
+        int size = travelDAO.searchTickets(typeOfTravelString,Date.valueOf(dateOfDepartureDatePicker.getValue()).toLocalDate() ,Date.valueOf(dateOfArrivalDatePicker.getValue()).toLocalDate(),startingStationString,terminalStationString,modeOfTransportString,Status.TRUE.getStatus()).size();
+        if(size != 0){
             messageLabel.setTextFill(Color.GREEN);
-            messageLabel.setText("Found travel");
+
+            messageLabel.setText("Found travel - " + size);
+
+            fillTravelTableWithData();
+
             buyTicketAnchorPane.setVisible(true);
-
-            if(ticketsComboBox.getValue() == null){
-                ticketsInteger = ticketsComboBox.getItems().get(0);
-            }
-            double priceForTickets = travelDAO.getPriceTicket(idTravel) * ticketsInteger;
-            priceTextField.setText(String.valueOf(String.format("%.2f",priceForTickets)));
-
-
         }
-        else{
+        else {
             messageLabel.setTextFill(Color.RED);
             messageLabel.setText("Not found travel");
 
@@ -118,14 +125,26 @@ public class BuyingTicketsController implements Initializable {
     }
     @FXML
     public void buyButton(ActionEvent actionEvent) {
+
         if(ticketsInteger <= travelDAO.getTotalTickets(idTravel)){
+
             int remainingTickets = travelDAO.getTotalTickets(idTravel) - ticketsInteger;
+
             int totalTicketsForCustomer = customerDAO.getTotalTickets(((CustomerEntity)CurrentUser.getUser()).getCustomer_id());
+
             totalTicketsForCustomer+=ticketsInteger;
+
             customerDAO.updateTotalTickets(totalTicketsForCustomer,((CustomerEntity)CurrentUser.getUser()).getCustomer_id());
+
             travelDAO.updateTicketNumber(idTravel,remainingTickets);
+
+            messageLabel.setTextFill(Color.GREEN);
             messageLabel.setText("Successfully purchased");
+
             purchasedTicketsDAO.addData(new PurchasedTicketsEntity(idTravel,travelDAO.getIdCashier(idTravel),((CustomerEntity)CurrentUser.getUser()).getCustomer_id(),ticketsInteger));
+
+            Log4j.logger.info("\n" +
+                    "Purchased ticket from " + CurrentUser.getUser().getUserName());
         }
         else{
             messageLabel.setTextFill(Color.RED);
@@ -166,7 +185,7 @@ public class BuyingTicketsController implements Initializable {
     public void ticketsComboBox(ActionEvent actionEvent) {
         ticketsInteger = ticketsComboBox.getSelectionModel().getSelectedItem();
 
-        if(isValidFields()){
+        if(isValidFields() && idTravel != 0){
             double priceForTickets = travelDAO.getPriceTicket(idTravel) * ticketsInteger;
             priceTextField.setText(String.valueOf(String.format("%.2f",priceForTickets)));
         }
@@ -175,6 +194,39 @@ public class BuyingTicketsController implements Initializable {
     @FXML
     public void refreshButton(ActionEvent actionEvent) throws IOException {
         SceneController.getBuyingTicketsScene(actionEvent);
+
+    }
+
+    @FXML
+    public void animationCheckBox(ActionEvent actionEvent) {
+        if(!animationCheckBox.isSelected()){
+            animationAnchorPane.setVisible(false);
+        }
+        else{
+           animationAnchorPane.setVisible(true);
+        }
+
+    }
+
+    @FXML
+    public void clickTakeIdForBuy(MouseEvent mouseEvent) {
+        try{
+            ObservableList<TravelEntity> travelEntityObservableList;
+            travelEntityObservableList = travelTableView.getSelectionModel().getSelectedItems();
+
+            idTravel = travelEntityObservableList.get(0).getId_travel();
+
+            if(ticketsComboBox.getValue() == null){
+                ticketsInteger = ticketsComboBox.getItems().get(0);
+            }
+
+            double priceForTickets = travelDAO.getPriceTicket(idTravel) * ticketsInteger;
+
+            priceTextField.setText(String.valueOf(String.format("%.2f",priceForTickets)));
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
 
     }
 
@@ -200,16 +252,18 @@ public class BuyingTicketsController implements Initializable {
 
         ticketsComboBox.getItems().addAll(ticketNumber);
 
+        animationCheckBox.setSelected(true);
 
-        File refreshFile = new File("Images/refresh.png");
+
+        File refreshFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\refresh.png");
         Image refreshImage = new Image(refreshFile.toURI().toString());
         refreshImageView.setImage(refreshImage);
 
-        File cartoonTicketFile = new File("Images/cartoonTicket.png");
+        File cartoonTicketFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\cartoonTicket.png");
         Image cartoonTicketImage = new Image(cartoonTicketFile.toURI().toString());
         cartoonTicketImageView.setImage(cartoonTicketImage);
 
-        File stickManFile = new File("Images/stickMan.png");
+        File stickManFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\stickMan.png");
         Image stickManImage = new Image(stickManFile.toURI().toString());
         stickManImageView.setImage(stickManImage);
 
@@ -231,6 +285,23 @@ public class BuyingTicketsController implements Initializable {
         transition.setByX(250);
         transition.play();
     }
+
+    private void fillTravelTableWithData(){
+        idTravelColumn.setCellValueFactory(new PropertyValueFactory<>("id_travel"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("priceTicket"));
+
+
+        travelTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        travelTableView.setItems(getTravelObservableList());
+
+    }
+
+    private ObservableList<TravelEntity> getTravelObservableList(){
+        ObservableList<TravelEntity> travels = FXCollections.observableArrayList();
+        travels.addAll(travelDAO.searchTickets(typeOfTravelString,Date.valueOf(dateOfDepartureDatePicker.getValue()).toLocalDate() ,Date.valueOf(dateOfArrivalDatePicker.getValue()).toLocalDate(),startingStationString,terminalStationString,modeOfTransportString,Status.TRUE.getStatus()));
+        return travels;
+    }
+
 
 
 }

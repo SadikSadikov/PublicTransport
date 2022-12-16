@@ -39,8 +39,8 @@ public class TravelCompanyDAO implements DAOInterface<TravelCompanyEntity>{
     }
 
     @Override
-    public void deleteData(int data) {
-
+    public boolean deleteData(int data) {
+        return false;
     }
 
     @Override

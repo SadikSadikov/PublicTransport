@@ -18,8 +18,8 @@ public class AdminDAO implements DAOInterface<AdminEntity>{
     }
 
     @Override
-    public void deleteData(int data) {
-
+    public boolean deleteData(int data) {
+        return false;
     }
 
     @Override

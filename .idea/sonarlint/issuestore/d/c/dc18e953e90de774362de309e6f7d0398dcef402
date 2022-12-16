@@ -1,0 +1,26 @@
+
+n	java:S116"YRename this field "distributor_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çç£
+u	java:S116"[Rename this field "date_distributor" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üÃıÔşÿÿÿÿ
+h	java:S100("NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óÈÆÓıÿÿÿÿ
+h	java:S100,"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆ«ªæøÿÿÿÿ
+P
+java:S11611":Add the "@Override" annotation above this method signature(â„ô
+P
+java:S11616":Add the "@Override" annotation above this method signature(«Æë
+U
+java:S1161;":Add the "@Override" annotation above this method signature(“–²ùÿÿÿÿ
+P
+java:S1161@":Add the "@Override" annotation above this method signature(ƒßù
+O
+java:S1161E":Add the "@Override" annotation above this method signature(şŒÒ^
+P
+java:S1161J":Add the "@Override" annotation above this method signature(ı‰ñÍ
+U
+java:S1161O":Add the "@Override" annotation above this method signature(¼êÉ‡ıÿÿÿÿ
+O
+java:S1161T":Add the "@Override" annotation above this method signature(ï““<
+j	java:S100Y"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸Ê×Ø8¯¶Î0
+j	java:S100]"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûŒ³è8¯¶Î0
+k	java:S117,"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆ«ªæøÿÿÿÿ
+m	java:S117]"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûŒ³è8¯¶Î0
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ù¶­©ÿÿÿÿÿ

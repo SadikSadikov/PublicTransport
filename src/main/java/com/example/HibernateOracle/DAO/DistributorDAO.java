@@ -1,6 +1,5 @@
 package com.example.HibernateOracle.DAO;
 
-import com.example.HibernateOracle.Model.CustomerEntity;
 import com.example.HibernateOracle.Model.DistributorEntity;
 import com.example.HibernateOracle.Utility.HibernateUtil;
 
@@ -40,8 +39,8 @@ public class DistributorDAO implements DAOInterface<DistributorEntity>{
     }
 
     @Override
-    public void deleteData(int data) {
-
+    public boolean deleteData(int data) {
+        return false;
     }
 
     @Override

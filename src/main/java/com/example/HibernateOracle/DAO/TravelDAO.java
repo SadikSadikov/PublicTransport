@@ -1,7 +1,5 @@
 package com.example.HibernateOracle.DAO;
 
-import com.example.HibernateOracle.Model.DistributorEntity;
-import com.example.HibernateOracle.Model.TravelCompanyEntity;
 import com.example.HibernateOracle.Model.TravelEntity;
 import com.example.HibernateOracle.Utility.HibernateUtil;
 
@@ -49,7 +47,7 @@ public class TravelDAO implements DAOInterface<TravelEntity>{
     }
 
     @Override
-    public void deleteData(int data) {
+    public boolean deleteData(int data) {
         EntityTransaction transaction = null;
         try{
             EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
@@ -59,6 +57,7 @@ public class TravelDAO implements DAOInterface<TravelEntity>{
             query.setParameter("data", data);
             query.executeUpdate();
             transaction.commit();
+            return true;
         }
         catch (Exception e){
             if (transaction != null) {
@@ -66,6 +65,7 @@ public class TravelDAO implements DAOInterface<TravelEntity>{
             }
             System.out.println(e);
         }
+        return false;
 
     }
 
@@ -173,7 +173,7 @@ public class TravelDAO implements DAOInterface<TravelEntity>{
         }
     }
 
-    public int searchTickets(String typeOfTravel,LocalDate dateOfDeparture,LocalDate dateOfArrival, String startingStation,String terminalStation,String modeOfTransport,String status){
+    public List<TravelEntity> searchTickets(String typeOfTravel,LocalDate dateOfDeparture,LocalDate dateOfArrival, String startingStation,String terminalStation,String modeOfTransport,String status){
         try{
             EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
             TypedQuery<TravelEntity> query = entityManager.createQuery("FROM TravelEntity t WHERE t.typeOfTravel = :typeOfTravel AND t.startingStation = :startingStation AND t.terminalStation = :terminalStation AND t.dateOfDeparture = :dateOfDeparture AND t.dateOfArrival = :dateOfArrival AND t.modeOfTransport = :modeOfTransport AND t.status = :status",TravelEntity.class);
@@ -184,12 +184,12 @@ public class TravelDAO implements DAOInterface<TravelEntity>{
             query.setParameter("dateOfArrival",dateOfArrival);
             query.setParameter("modeOfTransport",modeOfTransport);
             query.setParameter("status",status);
-            return query.getResultList().get(0).getId_travel();
+            return query.getResultList();
 
         }
         catch (Exception e){
             System.out.println(e);
-            return 0;
+            return new ArrayList<>();
         }
     }
 
@@ -284,6 +284,20 @@ public class TravelDAO implements DAOInterface<TravelEntity>{
             return new ArrayList<>();
         }
 
+    }
+
+    public List<Integer> removeExpiredTrips(LocalDate currentDate){
+        try {
+            EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
+            TypedQuery<Integer> query = entityManager.createQuery("SELECT t.id_travel FROM TravelEntity t WHERE t.dateOfDeparture < :currentDate",Integer.class);
+            query.setParameter("currentDate", currentDate);
+            return query.getResultList();
+
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return new ArrayList<>();
+        }
     }
 
 
