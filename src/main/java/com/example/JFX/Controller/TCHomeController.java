@@ -11,6 +11,9 @@ import com.example.HibernateOracle.DAO.TravelDAO;
 import com.example.HibernateOracle.Model.MessagesEntity;
 import com.example.HibernateOracle.Model.TravelCompanyEntity;
 import com.example.HibernateOracle.Model.TravelEntity;
+import com.example.Service.Classes.CashierService;
+import com.example.Service.Classes.MessagesService;
+import com.example.Service.Classes.TravelService;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -136,9 +139,11 @@ public class TCHomeController implements Initializable {
     private String terminalStation;
     private String startingStation;
     private String modeOfTransport;
-    private final TravelDAO travelDAO = new TravelDAO();
-    private final MessagesDAO messagesDAO = new MessagesDAO();
-    private final CashierDAO cashierDAO = new CashierDAO();
+
+    private final TravelService travelService = new TravelService();
+    private final MessagesService messagesService = new MessagesService();
+    private final CashierService cashierService = new CashierService();
+
     private int messageID = 0;
     private String cashierName;
     private int idTravel;
@@ -220,12 +225,11 @@ public class TCHomeController implements Initializable {
 
     @FXML
     public void resetButton(ActionEvent actionEvent) {
-
         messageLabel.setText("");
-      numberOfPlacesTextField.setText("");
-      ticketLimitTextField.setText("");
-      dateOfDepartureDatePicker.getEditor().clear();
-      dateOfArrivalDatePicker.getEditor().clear();
+        numberOfPlacesTextField.setText("");
+        ticketLimitTextField.setText("");
+        dateOfDepartureDatePicker.getEditor().clear();
+        dateOfArrivalDatePicker.getEditor().clear();
 
     }
 
@@ -234,11 +238,11 @@ public class TCHomeController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,answerMessage.getText(),ButtonType.YES,ButtonType.CANCEL);
         alert.showAndWait();
         if(alert.getResult() == ButtonType.YES){
-            messagesDAO.addAnswer(ButtonType.YES.getText(),messageID);
-            travelDAO.addIdCashier(idTravel,cashierDAO.getIdWithName(cashierName));
+            messagesService.addAnswer(ButtonType.YES.getText(),messageID);
+            travelService.addIDCashier(idTravel,cashierService.getIdWithName(cashierName));
             return;
         }
-        messagesDAO.addAnswer(ButtonType.CANCEL.getText(),messageID);
+        messagesService.addAnswer(ButtonType.CANCEL.getText(),messageID);
     }
 
     @FXML
@@ -264,7 +268,7 @@ public class TCHomeController implements Initializable {
     }
     @FXML
     public void deleteMessageButton(ActionEvent actionEvent) {
-        messagesDAO.deleteData(messageID);
+        messagesService.deleteMessage(messageID);
     }
 
     @FXML
@@ -277,7 +281,7 @@ public class TCHomeController implements Initializable {
 
     @FXML
     public void buttonCancelTravel(ActionEvent actionEvent) {
-        if(travelDAO.deleteData(idTravelForDelete)){
+        if(travelService.deleteTravel(idTravelForDelete)){
             cancelledMessageLabel.setTextFill(Color.GREEN);
             cancelledMessageLabel.setText("Successfully cancelled travel: ");
             SendingNotifications.sendingNotifications(NotificationsPath.DISTRIBUTOR_CANCEL_TRAVEL_FILE.getPath(), idTravelForDelete+" id travel is cancelled");
@@ -343,8 +347,13 @@ public class TCHomeController implements Initializable {
     }
 
     private boolean isCreated(){
-        TravelEntity travel = new TravelEntity(typeOfTravel,startingStation,terminalStation,Date.valueOf(dateOfDepartureDatePicker.getValue()).toLocalDate(),Date.valueOf(dateOfArrivalDatePicker.getValue()).toLocalDate(),Integer.parseInt(numberOfPlacesTextField.getText()),modeOfTransport,Integer.parseInt(ticketLimitTextField.getText()), (TravelCompanyEntity) CurrentUser.getUser(),Double.parseDouble(priceTicketTextField.getText()));
-        return travelDAO.addData(travel);
+        return travelService.addTravel(typeOfTravel,startingStation,terminalStation,
+                Date.valueOf(dateOfDepartureDatePicker.getValue()).toLocalDate(),
+                Date.valueOf(dateOfArrivalDatePicker.getValue()).toLocalDate(),
+                Integer.parseInt(numberOfPlacesTextField.getText()),modeOfTransport,
+                Integer.parseInt(ticketLimitTextField.getText()),
+                (TravelCompanyEntity) CurrentUser.getUser(),Double.parseDouble(priceTicketTextField.getText()));
+
 
     }
 
@@ -369,7 +378,7 @@ public class TCHomeController implements Initializable {
 
     private ObservableList<TravelEntity> getTravelObservableList(){
         ObservableList<TravelEntity> travels = FXCollections.observableArrayList();
-        travels.addAll(travelDAO.getTravel(((TravelCompanyEntity) CurrentUser.getUser()).getTc_id()));
+        travels.addAll(travelService.getTravelForTC(((TravelCompanyEntity) CurrentUser.getUser()).getTc_id()));
         return travels;
     }
 
@@ -395,7 +404,7 @@ public class TCHomeController implements Initializable {
 
     private ObservableList<MessagesEntity> getMessageObservableList(){
         ObservableList<MessagesEntity> messages = FXCollections.observableArrayList();
-        messages.addAll(messagesDAO.getMessages(((TravelCompanyEntity) CurrentUser.getUser()).getTc_id()));
+        messages.addAll(messagesService.getMessages(((TravelCompanyEntity) CurrentUser.getUser()).getTc_id()));
         return messages;
     }
 

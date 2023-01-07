@@ -75,7 +75,7 @@ public class CashierDAO implements DAOInterface<CashierEntity>{
     public List<String> getNamesOfCashier(){
         try{
             EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
-            return entityManager.createQuery("SELECT c.userName FROM CashierEntity c",String.class).setFirstResult(1).getResultList();
+            return entityManager.createQuery("SELECT c.userName FROM CashierEntity c",String.class).getResultList();
         }
         catch (Exception e){
             System.out.println(e);

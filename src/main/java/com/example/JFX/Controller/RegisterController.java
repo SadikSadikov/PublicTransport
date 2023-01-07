@@ -1,8 +1,8 @@
 package com.example.JFX.Controller;
 
 import com.example.Helpers.Log4j;
-import com.example.HibernateOracle.DAO.*;
-import com.example.HibernateOracle.Model.*;
+import com.example.Service.Classes.AuthenticationService;
+import com.example.Service.Classes.CreateUserService;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,8 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,17 +46,14 @@ public class RegisterController implements Initializable{
     @FXML
     public ImageView backImageView;
 
-
-    private final CustomerDAO customerDao = new CustomerDAO();
-    private final AdminDAO adminDao = new AdminDAO();
-    private final TravelCompanyDAO travelCompanyDAO = new TravelCompanyDAO();
-    private final CashierDAO cashierDAO = new CashierDAO();
-    private final DistributorDAO distributorDAO = new DistributorDAO();
+    private final AuthenticationService authenticationService = new AuthenticationService();
+    private final CreateUserService createUserService = new CreateUserService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setTexts();
     }
+
     @FXML
     public void buttonSignUp(ActionEvent actionEvent) {
         if(!isValidFields()){
@@ -119,27 +114,7 @@ public class RegisterController implements Initializable{
     }
 
     private boolean isValidateLogin() {
-        CustomerEntity customer = customerDao.getConnectedUser(userNameTextField.getText(), passwordField.getText());
-        AdminEntity admin = adminDao.getConnectedAdmin(userNameTextField.getText(),passwordField.getText());
-        TravelCompanyEntity travelCompany = travelCompanyDAO.getConnectedUser(userNameTextField.getText(),passwordField.getText());
-        CashierEntity cashier = cashierDAO.getConnectedUser(userNameTextField.getText(),passwordField.getText());
-        DistributorEntity distributor = distributorDAO.getConnectedUser(userNameTextField.getText(),passwordField.getText());
-        if (customer != null) {
-            return false;
-        }
-        if(admin != null){
-            return false;
-        }
-        if(travelCompany != null){
-            return false;
-        }
-        if(cashier != null){
-            return false;
-        }
-        if(distributor != null){
-            return false;
-        }
-        return true;
+        return authenticationService.loginUser(userNameTextField.getText(), passwordField.getText()) == null;
     }
 
     private boolean isCheckForEqualPassword(){
@@ -147,8 +122,9 @@ public class RegisterController implements Initializable{
     }
 
     private boolean isCreated(){
-        return customerDao.addData(new CustomerEntity(firstNameTextField.getText(),
-                lastNameTextField.getText(),userNameTextField.getText(),passwordField.getText()));
+        String typeCustomer = "Customer";
+        return createUserService.createUser(typeCustomer,firstNameTextField.getText(),lastNameTextField.getText(),
+                userNameTextField.getText(), passwordField.getText());
     }
 
     private void setTexts(){

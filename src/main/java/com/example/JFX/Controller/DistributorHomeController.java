@@ -12,6 +12,10 @@ import com.example.HibernateOracle.DAO.TravelCompanyDAO;
 import com.example.HibernateOracle.DAO.TravelDAO;
 import com.example.HibernateOracle.Model.MessagesEntity;
 import com.example.HibernateOracle.Model.TravelEntity;
+import com.example.Service.Classes.CashierService;
+import com.example.Service.Classes.MessagesService;
+import com.example.Service.Classes.TravelCompanyService;
+import com.example.Service.Classes.TravelService;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -117,10 +121,10 @@ public class DistributorHomeController implements Initializable {
     @FXML
     public ComboBox<String> travelCompanyComboBox;
 
-    private final TravelDAO travelDAO = new TravelDAO();
-    private final CashierDAO cashierDAO = new CashierDAO();
-    private final TravelCompanyDAO travelCompanyDAO = new TravelCompanyDAO();
-    private final MessagesDAO messagesDAO = new MessagesDAO();
+    private final TravelService travelService = new TravelService();
+    private final CashierService cashierService = new CashierService();
+    private final TravelCompanyService travelCompanyService = new TravelCompanyService();
+    private final MessagesService messagesService = new MessagesService();
 
 
     private String choiceTC;
@@ -177,7 +181,7 @@ public class DistributorHomeController implements Initializable {
         }
         messageLabel.setTextFill(Color.GREEN);
         messageLabel.setText("Successfully requested");
-        messagesDAO.addData(new MessagesEntity(choiceCashier,"null",travelId,idTC));
+        messagesService.addMessage(choiceCashier,"null",travelId,idTC);
 
         PauseTransition delay = new PauseTransition(Duration.seconds(2));
         delay.setOnFinished( event2 -> {
@@ -226,10 +230,10 @@ public class DistributorHomeController implements Initializable {
     private void setTexts(){
 
 
-        ObservableList<String> cashierChoice = FXCollections.observableArrayList(cashierDAO.getNamesOfCashier());
+        ObservableList<String> cashierChoice = FXCollections.observableArrayList(cashierService.getNameOfCashier());
         choiceCashierComboBox.setItems(cashierChoice);
 
-        ObservableList<String> tcChoice = FXCollections.observableArrayList(travelCompanyDAO.getNamesOfTC());
+        ObservableList<String> tcChoice = FXCollections.observableArrayList(travelCompanyService.getNameOfTravelCompany());
         travelCompanyComboBox.setItems(tcChoice);
 
         File logoutFile = new File("C:\\Users\\USER\\IdeaProjects\\PublicTransport\\PublicTransport\\Images\\Logout.png");
@@ -280,7 +284,7 @@ public class DistributorHomeController implements Initializable {
 
     private ObservableList<TravelEntity> getTravelObservableList(){
         ObservableList<TravelEntity> travels = FXCollections.observableArrayList();
-        travels.addAll(travelDAO.getTravels());
+        travels.addAll(travelService.getTravels());
         return travels;
     }
 
@@ -301,7 +305,7 @@ public class DistributorHomeController implements Initializable {
 
     private ObservableList<TravelEntity> getTravelsObservableList(){
         ObservableList<TravelEntity> travels = FXCollections.observableArrayList();
-        travels.addAll(travelDAO.getTravelsWithDateAndTC(travelCompanyDAO.getIdWithName(choiceTC), Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
+        travels.addAll(travelService.getTravelsWithDateAndTC(travelCompanyService.getIdWithName(choiceTC), Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
         return travels;
     }
 
@@ -336,7 +340,7 @@ public class DistributorHomeController implements Initializable {
     }
 
     private void systemNotification(){
-        int count = UnsoldTicketsNotification.unsoldTicketsNotification(CurrentTime.getTime(),travelDAO.getTravelsWithUnsoldTickets());
+        int count = UnsoldTicketsNotification.unsoldTicketsNotification(CurrentTime.getTime(),travelService.getTravelsWithUnsoldTickets());
         if(count != 0){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");

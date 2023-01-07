@@ -6,6 +6,7 @@ import com.example.Helpers.Travels.Status;
 import com.example.HibernateOracle.DAO.TravelDAO;
 import com.example.HibernateOracle.Model.CashierEntity;
 import com.example.HibernateOracle.Model.TravelEntity;
+import com.example.Service.Classes.TravelService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -78,9 +79,8 @@ public class CashierHomeController implements Initializable {
     @FXML
     public AnchorPane dashboardAnchorPane;
 
-    private final TravelDAO travelDAO = new TravelDAO();
 
-
+    private final TravelService travelService = new TravelService();
 
     private int idCashierForCashier;
     private int idTravelForCashier;
@@ -128,7 +128,7 @@ public class CashierHomeController implements Initializable {
 
     @FXML
     public void insertButton(ActionEvent actionEvent) {
-        if(travelDAO.updateStatus(Status.TRUE.getStatus(), idTravelForCashier)){
+        if(travelService.updateStatus(Status.TRUE.getStatus(), idTravelForCashier)){
             messageLabel.setTextFill(Color.GREEN);
             messageLabel.setText("Successfully added");
             return;
@@ -180,7 +180,7 @@ public class CashierHomeController implements Initializable {
 
     private ObservableList<TravelEntity> getTravelObservableList(){
         ObservableList<TravelEntity> travels = FXCollections.observableArrayList();
-        travels.addAll(travelDAO.getTravelsForCashier(((CashierEntity) CurrentUser.getUser()).getCashier_id(), Status.FALSE.getStatus()));
+        travels.addAll(travelService.getTravelsForCashier(((CashierEntity) CurrentUser.getUser()).getCashier_id(), Status.FALSE.getStatus()));
         return travels;
     }
     private void exit() {

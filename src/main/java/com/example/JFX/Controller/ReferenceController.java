@@ -2,6 +2,7 @@ package com.example.JFX.Controller;
 
 import com.example.HibernateOracle.DAO.*;
 import com.example.HibernateOracle.Model.*;
+import com.example.Service.Classes.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -93,13 +94,11 @@ public class ReferenceController implements Initializable {
     @FXML
     public TableView<TravelEntity> travelsTableView;
 
-    private final CustomerDAO customerDAO = new CustomerDAO();
-    private final DistributorDAO distributorDAO = new DistributorDAO();
-    private final CashierDAO cashierDAO = new CashierDAO();
-    private final PurchasedTicketsDAO purchasedTicketsDAO = new PurchasedTicketsDAO();
-    private final TravelDAO travelDAO = new TravelDAO();
-
-
+    private final CustomerService customerService = new CustomerService();
+    private final DistributorService distributorService = new DistributorService();
+    private final CashierService cashierService = new CashierService();
+    private final PurchasedTicketsService purchasedTicketsService = new PurchasedTicketsService();
+    private final TravelService travelService = new TravelService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -174,7 +173,7 @@ public class ReferenceController implements Initializable {
 
     private ObservableList<CustomerEntity> getCustomerObservableList(){
         ObservableList<CustomerEntity> customers = FXCollections.observableArrayList();
-        customers.addAll(customerDAO.getCustomerWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
+        customers.addAll(customerService.getCustomerWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
         return customers;
     }
 
@@ -188,7 +187,7 @@ public class ReferenceController implements Initializable {
 
     private ObservableList<DistributorEntity> getDistributorObservableList(){
         ObservableList<DistributorEntity> distributors = FXCollections.observableArrayList();
-        distributors.addAll(distributorDAO.getDistributorWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
+        distributors.addAll(distributorService.getDistributorWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
         return distributors;
     }
 
@@ -202,7 +201,7 @@ public class ReferenceController implements Initializable {
 
     private ObservableList<CashierEntity> getCashierObservableList(){
         ObservableList<CashierEntity> cashiers = FXCollections.observableArrayList();
-        cashiers.addAll(cashierDAO.getCashierWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
+        cashiers.addAll(cashierService.getCashierWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
         return cashiers;
     }
 
@@ -219,7 +218,7 @@ public class ReferenceController implements Initializable {
 
     private ObservableList<PurchasedTicketsEntity> getPurchasedTicketsObservableList(){
         ObservableList<PurchasedTicketsEntity> tickets = FXCollections.observableArrayList();
-        tickets.addAll(purchasedTicketsDAO.getPurchasedTicketsWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
+        tickets.addAll(purchasedTicketsService.getPurchasedTicketsWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
         return tickets;
     }
 
@@ -239,7 +238,7 @@ public class ReferenceController implements Initializable {
 
     private ObservableList<TravelEntity> getTravelObservableList(){
         ObservableList<TravelEntity> travels = FXCollections.observableArrayList();
-        travels.addAll(travelDAO.getTravelsWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
+        travels.addAll(travelService.getTravelsWithDate(Date.valueOf(fromDatePicker.getValue()).toLocalDate(),Date.valueOf(toDatePicker.getValue()).toLocalDate()));
         return travels;
     }
 

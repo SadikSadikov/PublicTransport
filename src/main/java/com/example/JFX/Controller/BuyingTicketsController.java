@@ -10,6 +10,10 @@ import com.example.HibernateOracle.DAO.CustomerDAO;
 import com.example.HibernateOracle.DAO.PurchasedTicketsDAO;
 import com.example.HibernateOracle.DAO.TravelDAO;
 import com.example.HibernateOracle.Model.*;
+import com.example.Service.Classes.CreateUserService;
+import com.example.Service.Classes.CustomerService;
+import com.example.Service.Classes.PurchasedTicketsService;
+import com.example.Service.Classes.TravelService;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,9 +86,9 @@ public class BuyingTicketsController implements Initializable {
     @FXML
     public TableColumn<TravelEntity,Double> priceColumn;
 
-    private final TravelDAO travelDAO = new TravelDAO();
-    private final PurchasedTicketsDAO purchasedTicketsDAO = new PurchasedTicketsDAO();
-    private final CustomerDAO customerDAO = new CustomerDAO();
+    private final TravelService travelService = new TravelService();
+    private final CustomerService customerService = new CustomerService();
+    private final PurchasedTicketsService purchasedTicketsService = new PurchasedTicketsService();
 
     private String typeOfTravelString;
     private String startingStationString;
@@ -107,7 +111,7 @@ public class BuyingTicketsController implements Initializable {
             messageLabel.setText("Fields can't be empty!");
             return;
         }
-        int size = travelDAO.searchTickets(typeOfTravelString,Date.valueOf(dateOfDepartureDatePicker.getValue()).toLocalDate() ,Date.valueOf(dateOfArrivalDatePicker.getValue()).toLocalDate(),startingStationString,terminalStationString,modeOfTransportString,Status.TRUE.getStatus()).size();
+        int size = travelService.searchTicketsToBuy(typeOfTravelString,Date.valueOf(dateOfDepartureDatePicker.getValue()).toLocalDate() ,Date.valueOf(dateOfArrivalDatePicker.getValue()).toLocalDate(),startingStationString,terminalStationString,modeOfTransportString,Status.TRUE.getStatus()).size();
         if(size != 0){
             messageLabel.setTextFill(Color.GREEN);
 
@@ -126,22 +130,22 @@ public class BuyingTicketsController implements Initializable {
     @FXML
     public void buyButton(ActionEvent actionEvent) {
 
-        if(ticketsInteger <= travelDAO.getTotalTickets(idTravel)){
+        if(ticketsInteger <= travelService.getTotalTicketsWithID(idTravel)){
 
-            int remainingTickets = travelDAO.getTotalTickets(idTravel) - ticketsInteger;
+            int remainingTickets = travelService.getTotalTicketsWithID(idTravel) - ticketsInteger;
 
-            int totalTicketsForCustomer = customerDAO.getTotalTickets(((CustomerEntity)CurrentUser.getUser()).getCustomer_id());
+            int totalTicketsForCustomer = customerService.getTotalTicketsWithID(((CustomerEntity) CurrentUser.getUser()).getCustomer_id());
 
             totalTicketsForCustomer+=ticketsInteger;
 
-            customerDAO.updateTotalTickets(totalTicketsForCustomer,((CustomerEntity)CurrentUser.getUser()).getCustomer_id());
+            customerService.updateTotalTickets(totalTicketsForCustomer,((CustomerEntity)CurrentUser.getUser()).getCustomer_id());
 
-            travelDAO.updateTicketNumber(idTravel,remainingTickets);
+            travelService.updateTicketNumber(idTravel,remainingTickets);
 
             messageLabel.setTextFill(Color.GREEN);
             messageLabel.setText("Successfully purchased");
 
-            purchasedTicketsDAO.addData(new PurchasedTicketsEntity(idTravel,travelDAO.getIdCashier(idTravel),((CustomerEntity)CurrentUser.getUser()).getCustomer_id(),ticketsInteger));
+            purchasedTicketsService.addPurchasedTickets(idTravel,travelService.getIdCashierWithID(idTravel),((CustomerEntity)CurrentUser.getUser()).getCustomer_id(),ticketsInteger);
 
             Log4j.logger.info("\n" +
                     "Purchased ticket from " + CurrentUser.getUser().getUserName());
@@ -186,7 +190,7 @@ public class BuyingTicketsController implements Initializable {
         ticketsInteger = ticketsComboBox.getSelectionModel().getSelectedItem();
 
         if(isValidFields() && idTravel != 0){
-            double priceForTickets = travelDAO.getPriceTicket(idTravel) * ticketsInteger;
+            double priceForTickets = travelService.getPriceTicketWithID(idTravel) * ticketsInteger;
             priceTextField.setText(String.valueOf(String.format("%.2f",priceForTickets)));
         }
 
@@ -220,7 +224,7 @@ public class BuyingTicketsController implements Initializable {
                 ticketsInteger = ticketsComboBox.getItems().get(0);
             }
 
-            double priceForTickets = travelDAO.getPriceTicket(idTravel) * ticketsInteger;
+            double priceForTickets = travelService.getPriceTicketWithID(idTravel) * ticketsInteger;
 
             priceTextField.setText(String.valueOf(String.format("%.2f",priceForTickets)));
         }
@@ -298,7 +302,7 @@ public class BuyingTicketsController implements Initializable {
 
     private ObservableList<TravelEntity> getTravelObservableList(){
         ObservableList<TravelEntity> travels = FXCollections.observableArrayList();
-        travels.addAll(travelDAO.searchTickets(typeOfTravelString,Date.valueOf(dateOfDepartureDatePicker.getValue()).toLocalDate() ,Date.valueOf(dateOfArrivalDatePicker.getValue()).toLocalDate(),startingStationString,terminalStationString,modeOfTransportString,Status.TRUE.getStatus()));
+        travels.addAll(travelService.searchTicketsToBuy(typeOfTravelString,Date.valueOf(dateOfDepartureDatePicker.getValue()).toLocalDate() ,Date.valueOf(dateOfArrivalDatePicker.getValue()).toLocalDate(),startingStationString,terminalStationString,modeOfTransportString,Status.TRUE.getStatus()));
         return travels;
     }
 

@@ -4,8 +4,7 @@ import com.example.Helpers.CurrentTime;
 import com.example.Helpers.CurrentUser;
 import com.example.Helpers.Log4j;
 import com.example.Helpers.Travels.UnsoldTicketsNotification;
-import com.example.HibernateOracle.DAO.*;
-import com.example.HibernateOracle.Model.*;
+import com.example.Service.Classes.*;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -20,8 +19,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -104,13 +101,15 @@ public class AdminHomeController implements Initializable {
     @FXML
     public BarChart purchasedTicketsChart;
 
-    private final CustomerDAO customerDao = new CustomerDAO();
-    private final AdminDAO adminDao = new AdminDAO();
-    private final TravelCompanyDAO travelCompanyDAO = new TravelCompanyDAO();
-    private final CashierDAO cashierDAO = new CashierDAO();
-    private final DistributorDAO distributorDAO = new DistributorDAO();
-    private final TravelDAO travelDAO = new TravelDAO();
-    private final PurchasedTicketsDAO purchasedTicketsDAO = new PurchasedTicketsDAO();
+    private final AuthenticationService authenticationService = new AuthenticationService();
+    private final CreateUserService createUserService = new CreateUserService();
+    private final CashierService cashierService = new CashierService();
+    private final DistributorService distributorService = new DistributorService();
+    private final TravelCompanyService travelCompanyService = new TravelCompanyService();
+    private final CustomerService customerService = new CustomerService();
+    private final TravelService travelService = new TravelService();
+    private final PurchasedTicketsService purchasedTicketsService = new PurchasedTicketsService();
+
     private String choiceComboBox;
 
     @Override
@@ -190,6 +189,7 @@ public class AdminHomeController implements Initializable {
         SceneController.getUsersScene(actionEvent);
     }
 
+
     private void setTexts(){
         fillPurchasedTicketsChart();
 
@@ -251,6 +251,7 @@ public class AdminHomeController implements Initializable {
     private void exit() {
         buttonExit.setOnAction(SceneController::close);
     }
+
     private boolean isValidFields() {
         return !firstNameTextField.getText().isEmpty() && !lastNameTextField.getText().isEmpty() &&
                 !userNameTextField.getText().isEmpty() && !passwordField.getText().isEmpty()&&
@@ -258,27 +259,7 @@ public class AdminHomeController implements Initializable {
     }
 
     private boolean isValidateLogin() {
-        CustomerEntity customer = customerDao.getConnectedUser(userNameTextField.getText(), passwordField.getText());
-        AdminEntity admin = adminDao.getConnectedAdmin(userNameTextField.getText(),passwordField.getText());
-        TravelCompanyEntity travelCompany = travelCompanyDAO.getConnectedUser(userNameTextField.getText(),passwordField.getText());
-        CashierEntity cashier = cashierDAO.getConnectedUser(userNameTextField.getText(),passwordField.getText());
-        DistributorEntity distributor = distributorDAO.getConnectedUser(userNameTextField.getText(),passwordField.getText());
-        if(customer != null){
-            return false;
-        }
-        if(admin != null){
-            return false;
-        }
-        if(travelCompany != null){
-            return false;
-        }
-        if(cashier != null){
-            return false;
-        }
-        if(distributor != null){
-            return false;
-        }
-        return true;
+        return authenticationService.loginUser(userNameTextField.getText(), passwordField.getText()) == null;
     }
 
     private boolean isCheckForEqualPassword(){
@@ -286,30 +267,17 @@ public class AdminHomeController implements Initializable {
     }
 
     private boolean isCreated(){
-        if(choiceComboBox.equals("TravelCompany")){
-            return (travelCompanyDAO.addData(new TravelCompanyEntity(firstNameTextField.getText(),
-                    lastNameTextField.getText(),userNameTextField.getText(),passwordField.getText())));
-        }
-        if(choiceComboBox.equals("Distributor")){
-            return  distributorDAO.addData(new DistributorEntity(firstNameTextField.getText(),
-                    lastNameTextField.getText(),userNameTextField.getText(),passwordField.getText()));
-        }
-        if(choiceComboBox.equals("Cashier")){
-            return cashierDAO.addData(new CashierEntity(firstNameTextField.getText(),
-                    lastNameTextField.getText(),userNameTextField.getText(),passwordField.getText()));
-        }
-
-        return false;
+       return createUserService.createUser(choiceComboBox,firstNameTextField.getText(),lastNameTextField.getText(), userNameTextField.getText(), passwordField.getText());
     }
 
     private String getNumberOfCashier(){
-        return String.valueOf(cashierDAO.getNumberOfCashier());
+        return String.valueOf(cashierService.getNumberOfCashier());
     }
     private String getNumberOfTC(){
-        return String.valueOf(travelCompanyDAO.getNumberOfTravelCompany());
+        return String.valueOf(travelCompanyService.getNumberOfTravelCompany());
     }
     private String getNumberOfDistributor(){
-        return String.valueOf(distributorDAO.getNumberOfDistributor());
+        return String.valueOf(distributorService.getNumberOfDistributor());
     }
 
     private void fillPurchasedTicketsChart(){
@@ -317,16 +285,13 @@ public class AdminHomeController implements Initializable {
         XYChart.Series series = new XYChart.Series();
 
         series.setName(CurrentTime.getTime().toString());
-        for(int i = 0 ; i < customerDao.getNameTop5Customer().size() ; i++){
-            series.getData().add(new XYChart.Data(customerDao.getNameTop5Customer().get(i),customerDao.getNumberOfTicketsTop5Customer().get(i)));
-        }
 
-        purchasedTicketsChart.getData().addAll(series);
+        purchasedTicketsChart.getData().addAll(customerService.getTop5CustomerMostPurchasedTickets(series));
 
     }
 
     private void systemNotification(){
-        int count = UnsoldTicketsNotification.unsoldTicketsNotification(CurrentTime.getTime(),travelDAO.getTravelsWithUnsoldTickets());
+        int count = UnsoldTicketsNotification.unsoldTicketsNotification(CurrentTime.getTime(),travelService.getTravelsWithUnsoldTickets());
         if(count != 0){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
@@ -348,14 +313,14 @@ public class AdminHomeController implements Initializable {
             public void run() {
                 Platform.runLater(() -> {
                     int sumPurchasedTickets = 0;
-                    for(Integer i:purchasedTicketsDAO.getTotalPurchasedTickets()){
+                    for(Integer i:purchasedTicketsService.getTotalPurchasedTickets()){
                         sumPurchasedTickets += i;
                     }
 
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Warning");
                     alert.setHeaderText("Travel Status:");
-                    alert.setContentText("Purchase tickets" + " - " + sumPurchasedTickets);
+                    alert.setContentText("Purchased tickets" + " - " + sumPurchasedTickets);
                     alert.show();
 
                 });
@@ -366,5 +331,6 @@ public class AdminHomeController implements Initializable {
         }, calendar.getTime(), 86400000);
         //24hrs == 86400000ms
     }
+
 
 }

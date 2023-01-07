@@ -1,10 +1,10 @@
 package com.example.JFX.Controller;
 
-import com.example.Helpers.CurrentTime;
 import com.example.Helpers.CurrentUser;
 import com.example.Helpers.Log4j;
-import com.example.HibernateOracle.DAO.*;
 import com.example.HibernateOracle.Model.*;
+import com.example.Service.Classes.AuthenticationService;
+import com.example.Service.Classes.TravelService;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,8 +18,6 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.DirectoryStream;
-import java.util.Currency;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -42,12 +40,8 @@ public class LoginController implements Initializable {
     @FXML
     public Button buttonExit;
 
-    private final CustomerDAO customerDao = new CustomerDAO();
-    private final AdminDAO adminDao = new AdminDAO();
-    private final TravelCompanyDAO travelCompanyDAO = new TravelCompanyDAO();
-    private final CashierDAO cashierDAO = new CashierDAO();
-    private final DistributorDAO distributorDAO = new DistributorDAO();
-    private final TravelDAO travelDAO = new TravelDAO();
+    private final AuthenticationService authenticationService = new AuthenticationService();
+    private final TravelService travelService = new TravelService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -119,7 +113,7 @@ public class LoginController implements Initializable {
     }
     @FXML
     public void hyperlinkForgotPassword(ActionEvent actionEvent) {
-        //Forget password !
+        //Forgot password !
     }
 
     private boolean validFields() {
@@ -127,34 +121,15 @@ public class LoginController implements Initializable {
     }
 
     private boolean validateLogin() {
-        CustomerEntity customer = customerDao.getConnectedUser(usernameTextField.getText(), passwordField.getText());
-        AdminEntity admin = adminDao.getConnectedAdmin(usernameTextField.getText(),passwordField.getText());
-        TravelCompanyEntity travelCompany = travelCompanyDAO.getConnectedUser(usernameTextField.getText(),passwordField.getText());
-        CashierEntity cashier = cashierDAO.getConnectedUser(usernameTextField.getText(),passwordField.getText());
-        DistributorEntity distributor = distributorDAO.getConnectedUser(usernameTextField.getText(),passwordField.getText());
 
-        if (customer != null) {
-            CurrentUser.setUser(customer);
-            return true;
+        if (authenticationService.loginUser(usernameTextField.getText(),passwordField.getText()) == null){
+            return false;
         }
-        if(admin != null){
-            CurrentUser.setUser(admin);
-            return true;
-        }
-        if(travelCompany != null){
-            CurrentUser.setUser(travelCompany);
-            return true;
-        }
-        if(cashier != null){
-            CurrentUser.setUser(cashier);
-            return true;
-        }
-        if(distributor != null){
-            CurrentUser.setUser(distributor);
+        else{
+            CurrentUser.setUser(authenticationService.loginUser(usernameTextField.getText(),passwordField.getText()));
             return true;
         }
 
-        return false;
     }
 
     private void exit() {
@@ -168,9 +143,7 @@ public class LoginController implements Initializable {
     }
 
     private void removeExpiredTrips(){
-        for(Integer i : travelDAO.removeExpiredTrips(CurrentTime.getTime())){
-            travelDAO.deleteData(i);
-        }
+        travelService.removeExpiredTrips();
     }
 
 }

@@ -61,7 +61,7 @@ public class SceneController {
     }
 
     public static void getUsersScene(ActionEvent actionEvent) throws IOException {
-        changeScreen(actionEvent,ScenePath.USERS.getPath(), IconPath.MAIN.getPath());
+        changeScreen(actionEvent,ScenePath.REFERENCE.getPath(), IconPath.MAIN.getPath());
     }
 
     private static void changeScreen(ActionEvent event, String fxmlPath,String iconPath) throws IOException {
