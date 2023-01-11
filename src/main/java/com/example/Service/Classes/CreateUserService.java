@@ -9,7 +9,6 @@ import com.example.Service.Interfaces.ICreateUserService;
 
 public class CreateUserService implements ICreateUserService {
     private final CustomerDAO customerDao = new CustomerDAO();
-    private final AdminDAO adminDao = new AdminDAO();
     private final TravelCompanyDAO travelCompanyDAO = new TravelCompanyDAO();
     private final CashierDAO cashierDAO = new CashierDAO();
     private final DistributorDAO distributorDAO = new DistributorDAO();
